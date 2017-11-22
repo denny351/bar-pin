@@ -116,7 +116,7 @@ form.loginForm {
   margin: 15px 0;
 }
 
-#loginButton {
+.formButton {
   width: 60%;
   margin-left: 40px;
 }
