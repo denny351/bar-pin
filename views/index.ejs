@@ -3,15 +3,60 @@
   <head>
     <title>Home Page</title>
 
-    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
-    <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/style.css" type="text/css" />
+    <link rel="stylesheet" href="../public/stylesheets/style.css" type="text/css" />
+    <link rel="stylesheet" href="../public/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="../public/vendor/border-box.css" type="text/css" />
+    <!-- <link rel="stylesheet" href="../public/vendor/bootstrap.min.css" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-    <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
-    <script type="text/javascript" src="/scripts/app.js"></script>
   </head>
 
   <body>
-    <h1>Hello World!</h1>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                  Bar Pin
+                </li>
+                <li id="notLogedInForm">
+                  <form class="loginForm">
+                  <input type="text" class="form-control" id="inputUsername" placeholder="Username">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                    <button type="submit" id="loginButton" class="btn btn-primary">Sign in</button>
+                    <button type="submit" id="loginButton" class="btn btn-primary">Register</button>
+                  </form>
+                </li>
+<!--                 <li>
+                    <a href="#">Register</a>
+                </li> -->
+            </ul>
+        </div>
+        <div id="hello">
+        <div id="map"></div>
+        <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></a>
+      </div>
+
+    </div>
+
+
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfeIRFGkKmV3VDCcQtm517QYp87KA0www&callback=initMap">
+  </script>
+
+  <script type="text/javascript" src="../public/vendor/bootstrap.min.js"></script>
+  <!-- <script type="text/javascript" src="../public/vendor/jquery-3.2.1min.js"></script> -->
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="../public/scripts/app.js"></script>
+  <script type="text/javascript" src="../public/scripts/map.js"></script>
+
   </body>
+
+
 </html>
