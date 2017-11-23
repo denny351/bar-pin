@@ -18,7 +18,7 @@ $(() => {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
+
   })
 
   $(".loginForm").on("submit", function(event){
@@ -35,8 +35,17 @@ $(() => {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
+
   })
-  
-});  
-  
+
+});
+
+$("#logoutButton").on("click", function(event){
+  event.preventDefault();
+
+  $.ajax({
+    url: '/api/users/logout',
+    type: 'POST'
+  })
+});
+
