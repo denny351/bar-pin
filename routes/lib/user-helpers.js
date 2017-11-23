@@ -1,14 +1,12 @@
 module.exports = {
 
-findUserFromName: function(knex, name) {
-  let user;
+findUserFromName: function(knex, name, callback) {
   knex('*')
   .from('users')
   .where({ username: name })
   .then(function(rows) {
-    user = rows;
+    callback(rows)
   });
-  return user;
 },
 
 addNewUser: function(knex, userInfo, callback) {
