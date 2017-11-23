@@ -26,6 +26,10 @@ app.use(cookieSession({
   name: 'user_id',
   keys: ['key1']
 }));
+app.use((req, res, next) => {
+  app.locals.userID = (req.session.user_id) ? req.session.user_id : null;
+  next();
+});
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
