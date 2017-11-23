@@ -1,4 +1,3 @@
-
 function menuToggle() {
   $("#menu-toggle").click(function(event) {
     event.preventDefault();
@@ -25,9 +24,6 @@ function postNewPin() {
       method: 'POST',
       url: '/api/pins',
       data: JSON.stringify({title: $name, description: $description, img: $img})
-      // success: function() {
-      //   $(this).parent().parent().css('visibility','hidden');
-      // }
     });
   });
 }
@@ -68,6 +64,16 @@ function registerUser() {
   })
 }
 
+function logoutUser(){
+  $("#logoutButton").on("click", function(event){
+    event.preventDefault();
+
+    $.ajax({
+      url: '/api/users/logout',
+      type: 'POST'
+    })
+   });
+}
 
 $(function() {
   menuToggle();
