@@ -1,14 +1,14 @@
-<<<<<<< HEAD
+
 function menuToggle() {
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
+  $("#menu-toggle").click(function(event) {
+    event.preventDefault();
     $("#wrapper").toggleClass("toggled");
   });
 }
 
-function createForm() {
+function cancelForm() {
   $('.cancel').on("click", function () {
-    $(this).parent().parent().css('visibility','hidden');
+    $(this).parent().parent().fadeOut(200);
   });
 }
 
@@ -30,24 +30,9 @@ function postNewPin() {
       // }
     });
   });
-};
+}
 
-
-$(function() {
-  menuToggle();
-  createForm();
-  postNewPin();
-
-});
-
-=======
-$(() => {
-  $("#menu-toggle").click(function(e) {
-      e.preventDefault();
-      $("#wrapper").toggleClass("toggled");
-  });
->>>>>>> 83cdb4eed54da5c929140a0006c029ad4e9d0766
-
+function loginUser() {
   $(".loginForm").on("submit", function(event){
     event.preventDefault();
 
@@ -62,9 +47,10 @@ $(() => {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
   })
+}
 
+function registerUser() {
   $(".loginForm").on("submit", function(event){
     event.preventDefault();
 
@@ -79,8 +65,14 @@ $(() => {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
   })
-  
-});  
-  
+}
+
+
+$(function() {
+  menuToggle();
+  loginUser();
+  registerUser();
+  cancelForm();
+  postNewPin();
+});

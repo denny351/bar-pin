@@ -162,6 +162,7 @@ form.loginForm {
 
 .createContainer {
   width: 390px;
+  height: 350px;
   margin: auto;
   z-index: 99;
   position: fixed;
@@ -169,10 +170,9 @@ form.loginForm {
   margin-top: 20vh;
   margin-left: 35%;
   background-color: white;
-  border: 2.5px solid black;
+  border: 2px solid black;
   border-radius: 50px;
-  padding-bottom: 15px;
-  visibility: hidden;
+  display: none;
 }
 
 #createForm {
