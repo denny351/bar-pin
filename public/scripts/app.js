@@ -57,7 +57,7 @@ function postNewPin() {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
+
   })
 
   $(".loginForm").on("submit", function(event){
@@ -74,8 +74,8 @@ function postNewPin() {
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
     })
-  
+
   })
-  
-});  
-  
+
+});
+
