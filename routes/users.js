@@ -7,7 +7,6 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.put("/register", (req, res) => {
-
     const userInfo = {
       'name': req.body.userName,
       'pass': req.body.password
@@ -29,13 +28,11 @@ module.exports = (knex) => {
         res.status(400).json("You can't submit an empty form.");
       }
     } else {
-      res.status(401).json("You're already logged in.");
+      res.status(400).json("You're already logged in.");
     }
-
   });
 
   router.put("/login", (req, res) => {
-
     const userInfo = {
       'name': req.body.userName,
       'pass': req.body.password
@@ -55,7 +52,7 @@ module.exports = (knex) => {
         res.status(400).json("You can't submit an empty form.");
       }
     } else {
-      res.status(401).json("You're already logged in!");
+      res.status(400).json("You're already logged in!");
     }
   });
 

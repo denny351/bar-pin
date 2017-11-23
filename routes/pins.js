@@ -9,9 +9,9 @@ module.exports = (knex) => {
     const pinInfo = {
       userID: req.session.user_id,
       title: req.body.title,
-      description: req.body.desc,
-      image: req.body.img,
-      long: req.body.lng,
+      description: req.body.description,
+      image: req.body.imgage,
+      long: req.body.long,
       lat: req.body.lat
     }
 
