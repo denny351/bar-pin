@@ -16,7 +16,7 @@ exports.down = function(knex, Promise) {
       table.dropColumn('lng');
       table.dropColumn('lat');
     }),
-    nex.schema.createTable('types', function(table){
+    knex.schema.createTable('types', function(table){
       table.increments();
       table.string('description');
     })

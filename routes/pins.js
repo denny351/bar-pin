@@ -22,10 +22,6 @@ module.exports = (knex) => {
         res.json(pinInfo);
       }
     });
-
-
-
-
   });
 
   return router;
