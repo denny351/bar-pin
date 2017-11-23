@@ -33,9 +33,21 @@
 
         google.maps.event.addListener(map, 'rightclick', function(event) {
           if (confirm("Do you want to pin a bar here?")){
+
+          document.querySelector('.createContainer').style.visibility = 'visible';
+
+
             addMarker(event.latLng);
-            console.log(event.latLng);
+            console.log(event.latLng.lng());
             console.log(event.latLng.lat());
+
+
+            // $.ajax({
+            //   url: #,
+            //   method: "post",
+            //   data:
+            // })
+
           }
 
         });
