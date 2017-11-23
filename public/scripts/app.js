@@ -79,3 +79,15 @@ function postNewPin() {
 
 });
 
+<<<<<<< HEAD
+=======
+$("#logoutButton").on("click", function(event){
+  event.preventDefault();
+
+  $.ajax({
+    url: '/api/users/logout',
+    type: 'POST'
+  })
+});
+
+>>>>>>> feature/user_validation
