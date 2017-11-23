@@ -22,16 +22,27 @@
             infoWindow.open(map);
             map.setCenter(pos);
 
-            addMarker({lat: 49,lng: -123});
-            addMarker({lat: 49.5,lng: -123.2});
-            addMarker({lat: 49.2,lng: -123.1});
-          }, function() {
+          },
+          function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
-        } else {
+          } else {
           // Browser doesn't support Geolocation
           handleLocationError(false, infoWindow, map.getCenter());
         }
+
+        google.maps.event.addListener(map, 'rightclick', function(event) {
+          if (confirm("Do you want to pin a bar here?")){
+            addMarker(event.latLng);
+            console.log(event.latLng);
+            console.log(event.latLng.lat());
+          }
+
+        });
+
+            addMarker({lat: 49,lng: -123});
+            addMarker({lat: 49.5,lng: -123.2});
+            addMarker({lat: 49.2,lng: -123.1});
       }
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -49,3 +60,5 @@
           map: map
         })
       }
+
+

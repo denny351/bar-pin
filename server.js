@@ -33,6 +33,10 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
+  res.redirect("/index");
+});
+
+app.get("/index", (req, res) => {
   res.render("index");
 });
 
