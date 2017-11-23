@@ -12,18 +12,22 @@ function cancelForm() {
 }
 
 function postNewPin() {
-  let $submit = $('#submitPin');
-  let $name = $('#createName');
-  let $img = $('#createImage');
-  let $description = $('#createDescription');
+    let $submit = $('#submitPin');
 
   $submit.on('click', function(event) {
     event.preventDefault();
 
+    let $name = $('#createName').val();
+    let $img = $('#createImage').val();
+    let $description = $('#createDescription').val();
+    let $long = $('#createForm').data('long');
+    let $lat = $('#createForm').data('lat');
+
     $.ajax({
       method: 'POST',
       url: '/api/pins',
-      data: JSON.stringify({title: $name, description: $description, img: $img})
+      dataType: 'JSON',
+      data: {title: $name, desc: $description, img: $img, lng: $long, lat: $lat}
     });
   });
 }
