@@ -81,4 +81,5 @@ $(function() {
   registerUser();
   cancelForm();
   postNewPin();
+  logoutUser();
 });
