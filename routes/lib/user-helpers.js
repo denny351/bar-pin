@@ -11,7 +11,9 @@ findUserFromName: function(knex, name, callback) {
 
 addNewUser: function(knex, userInfo, callback) {
   knex('users')
-    .insert({ username: `${userInfo.name}`, password: `${userInfo.pass}` }).returning('id').then(function(id) {
+    .insert({ username: `${userInfo.name}`, password: `${userInfo.pass}` })
+    .returning('id')
+    .then(function(id) {
       callback(id);
     });
   }

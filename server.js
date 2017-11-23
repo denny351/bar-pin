@@ -14,6 +14,7 @@ const cookieSession = require('cookie-session');
 const app = express();
 
 const usersRoutes = require("./routes/users");
+const pinsRoutes  = require("./routes/pins");
 
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
@@ -28,6 +29,7 @@ app.use(cookieSession({
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
+app.use("/api/pins", pinsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
