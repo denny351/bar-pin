@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+$(() => {
 function menuToggle() {
   $("#menu-toggle").click(function(e) {
     e.preventDefault();
@@ -25,28 +25,23 @@ function postNewPin() {
       method: 'POST',
       url: '/api/pins',
       data: JSON.stringify({title: $name, description: $description, img: $img})
-      // success: function() {
-      //   $(this).parent().parent().css('visibility','hidden');
-      // }
     });
   });
 };
 
-
-$(function() {
+// $(function() {
   menuToggle();
   createForm();
   postNewPin();
 
-});
 
-=======
-$(() => {
+
+
   $("#menu-toggle").click(function(e) {
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
   });
->>>>>>> 83cdb4eed54da5c929140a0006c029ad4e9d0766
+
 
   $(".loginForm").on("submit", function(event){
     event.preventDefault();
