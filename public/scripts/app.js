@@ -19,7 +19,6 @@ function postNewPin() {
 
   $submit.on('click', function(event) {
     event.preventDefault();
-
     $.ajax({
       method: 'POST',
       url: '/api/pins',
@@ -29,13 +28,15 @@ function postNewPin() {
 }
 
 function loginUser() {
-  $(".loginForm").on("submit", function(event){
+  $("#loginButton").on("click", function(event){
     event.preventDefault();
-
+    const username = $('#inputUsername').val();
+    const password = $('#inputPassword').val();
     $.ajax({
       url: '/api/users/login',
       type: 'PUT',
-      data: $(event.target).serialize()
+      dataType: 'JSON',
+      data: {'userName': username, 'password': password}
     })
     .done(function(response){
       console.log(response);
@@ -47,13 +48,17 @@ function loginUser() {
 }
 
 function registerUser() {
-  $(".loginForm").on("submit", function(event){
+  $("#registerButton").on("click", function(event){
     event.preventDefault();
+    const username = $('#inputUsername').val();
+    const password = $('#inputPassword').val();
 
+    console.log(username, password);
     $.ajax({
       url: '/api/users/register',
       type: 'PUT',
-      data: $(event.target).serialize()
+      dataType: 'JSON',
+      data: {'userName': username, 'password': password}
     })
     .done(function(response){
       console.log(response);
