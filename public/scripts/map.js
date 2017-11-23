@@ -34,23 +34,12 @@
         google.maps.event.addListener(map, 'rightclick', function(event) {
           if (confirm("Do you want to pin a bar here?")){
 
-            $(".createContainer").slideDown();
-          // document.querySelector('.createContainer').style.visibility = 'visible';
-
-
+            $(".createContainer").fadeIn(700, 'linear', function() {
+              $("#createName").focus();
+            });
+            $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
             addMarker(event.latLng);
-            console.log(event.latLng.lng());
-            console.log(event.latLng.lat());
-
-
-            // $.ajax({
-            //   url: #,
-            //   method: "post",
-            //   data:
-            // })
-
           }
-
         });
 
             addMarker({lat: 49,lng: -123});
@@ -74,4 +63,16 @@
         })
       }
 
+
+var testContent = `<div id="iw-container">
+                    <div class="iw-title">${testTitle}</div>
+                    <div class="iw-content">
+                      <img src=${testImg}>
+                      <p>${testDesc}</p>
+                    </div>
+                  </div>`
+
+var testTitle = "Lighthouse Bars"
+var testImg = "https://www.lighthouselabs.ca/assets/home-1b1053e3e6e741308433e7e45af5783c8466e4bc14df186390ff707c05164f90.jpg"
+var testDesc = "Open 24/7. $2.50 Beers and Free Coffee!!"
 

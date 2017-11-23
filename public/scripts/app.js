@@ -12,30 +12,36 @@ function cancelForm() {
 }
 
 function postNewPin() {
-  let $submit = $('#submitPin');
-  let $name = $('#createName');
-  let $img = $('#createImage');
-  let $description = $('#createDescription');
+    let $submit = $('#submitPin');
 
   $submit.on('click', function(event) {
     event.preventDefault();
 
+    let $name = $('#createName').val();
+    let $img = $('#createImage').val();
+    let $description = $('#createDescription').val();
+    let $long = $('#createForm').data('long');
+    let $lat = $('#createForm').data('lat');
+
     $.ajax({
       method: 'POST',
       url: '/api/pins',
-      data: JSON.stringify({title: $name, description: $description, img: $img})
+      dataType: 'JSON',
+      data: {title: $name, desc: $description, img: $img, lng: $long, lat: $lat}
     });
   });
 }
 
 function loginUser() {
-  $(".loginForm").on("submit", function(event){
+  $("#loginButton").on("click", function(event){
     event.preventDefault();
-
+    const username = $('#inputUsername').val();
+    const password = $('#inputPassword').val();
     $.ajax({
       url: '/api/users/login',
       type: 'PUT',
-      data: $(event.target).serialize()
+      dataType: 'JSON',
+      data: {'userName': username, 'password': password}
     })
     .done(function(response){
       console.log(response);
@@ -47,13 +53,17 @@ function loginUser() {
 }
 
 function registerUser() {
-  $(".loginForm").on("submit", function(event){
+  $("#registerButton").on("click", function(event){
     event.preventDefault();
+    const username = $('#inputUsername').val();
+    const password = $('#inputPassword').val();
 
+    console.log(username, password);
     $.ajax({
       url: '/api/users/register',
       type: 'PUT',
-      data: $(event.target).serialize()
+      dataType: 'JSON',
+      data: {'userName': username, 'password': password}
     })
     .done(function(response){
       console.log(response);

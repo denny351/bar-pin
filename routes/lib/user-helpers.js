@@ -1,6 +1,7 @@
 module.exports = {
 
 findUserFromName: function(knex, name, callback) {
+  // First function findUserFromUserName(knex, callback)
   knex('*')
   .from('users')
   .where({ username: name })
@@ -10,6 +11,7 @@ findUserFromName: function(knex, name, callback) {
 },
 
 addNewUser: function(knex, userInfo, callback) {
+  // Callback function addNewUser()
   knex('users')
     .insert({ username: `${userInfo.name}`, password: `${userInfo.pass}` })
     .returning('id')
@@ -17,9 +19,4 @@ addNewUser: function(knex, userInfo, callback) {
       callback(id);
     });
   }
-
-
-// First function findUserFromUserName(knex, callback)
-// Callback function addNewUser()
-
 }

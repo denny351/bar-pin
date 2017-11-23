@@ -33,6 +33,7 @@ module.exports = (knex) => {
   });
 
   router.put("/login", (req, res) => {
+
     const userInfo = {
       'name': req.body.userName,
       'pass': req.body.password
@@ -41,7 +42,9 @@ module.exports = (knex) => {
     if(!req.session.user_id) {
       if (userInfo.name && userInfo.pass) {
         userHelpers.findUserFromName(knex, userInfo.name, (user) => {
-          if(user[0].username === userInfo.name && user[0].password === userInfo.pass) {
+          if(!user.length) {
+          	res.status(400).json("Username wasn't found.");
+          } else if(user[0].username === userInfo.name && user[0].password === userInfo.pass) {
             req.session.user_id = user.id;
             res.json(`Welcome ${userInfo.name}!`);
           } else {
@@ -63,5 +66,3 @@ module.exports = (knex) => {
 
   return router;
 }
-
-

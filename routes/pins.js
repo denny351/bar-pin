@@ -6,6 +6,7 @@ module.exports = (knex) => {
 
   router.post("/", (req, res) => {
     // the form will pass in title, desc, image, long, lat.. Use req.session.user_id to get the user_id foreign key.
+    console.log(req.body)
     const pinInfo = {
       userID: req.session.user_id,
       title: req.body.title,
