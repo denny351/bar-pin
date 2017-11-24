@@ -12,6 +12,12 @@ function initMap() {
         $("#createName").focus();
       });
       $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        icon: "../images/bar.png"
+      });
+
     }
   });
 
@@ -54,16 +60,20 @@ function initMap() {
   //CLICK FOR EDIT FORM
   $.get("/api/pins", function(data) {
     $(document).on('click', '.editForm', (event) => {
-      $(".editContainer").fadeIn(200, 'linear', function() {
-        var parent = $(event.target).parents('#iw-container');
-        id = $(parent[0]).data('id');
-        $(this).find('#editForm').removeAttr("data-id");
-        $(this).find('#editName').val(data[id - 1].title);
-        $(this).find('#editImage').val(data[id - 1].image);
-        $(this).find('#editDescription').val(data[id - 1].description);
-        $(this).find('#editForm').attr("data-id", id);
-        console.log(id)
-      });
+      var parent = $(event.target).parents('#iw-container');
+      id = $(parent[0]).data('id');
+      for(let j = 0; j < data.length; j++){
+        if(id === data[j].id){
+          $(".editContainer").fadeIn(200, 'linear', function() {
+
+            $(this).find('#editName').val(data[j].title);
+            $(this).find('#editImage').val(data[j].image);
+            $(this).find('#editDescription').val(data[j].description);
+            // $(this).find('#editForm').attr("data-id", id);
+            console.log(id)
+          })
+        }
+      }
     })
   })
 
@@ -79,12 +89,12 @@ function initMap() {
     console.log(name, img, description, clickedID)
     $.ajax({
           method: 'PUT',
-          url: `/api/pins/${clickedID}`,
+          url: `/api/pins/${clickedID}/update`,
           dataType: 'JSON',
           data: {title: name, desc: description, img: img}
         })
         .done(function(){
-          $('.createContainer').fadeOut(200);
+          $('.editContainer').fadeOut(200);
         })
 })
 
