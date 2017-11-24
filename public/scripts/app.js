@@ -17,18 +17,22 @@ function postNewPin() {
   $submit.on('click', function(event) {
     event.preventDefault();
 
-    let $name = $('#createName').val();
-    let $img = $('#createImage').val();
-    let $description = $('#createDescription').val();
-    let $long = $('#createForm').data('long');
-    let $lat = $('#createForm').data('lat');
+    let name = $('#createName').val();
+    let img = $('#createImage').val();
+    let description = $('#createDescription').val();
+    let long = $('#createForm').data('long');
+    let lat = $('#createForm').data('lat');
 
     $.ajax({
       method: 'POST',
       url: '/api/pins',
       dataType: 'JSON',
-      data: {title: $name, desc: $description, img: $img, lng: $long, lat: $lat}
-    });
+      data: {title: name, desc: description, img: img, lng: long, lat: lat}
+    })
+    .done(function(){
+      $('.createContainer').fadeOut(200);
+    })
+
   });
 }
 
@@ -43,8 +47,8 @@ function loginUser() {
       dataType: 'JSON',
       data: {'userName': username, 'password': password}
     })
-    .done(function(response){
-      console.log(response);
+      .done(function(response){
+        console.log(response);
     })
     .fail(function(jqXHR, textStatus) {
       console.log(textStatus);
