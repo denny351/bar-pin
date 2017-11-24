@@ -28,7 +28,7 @@ app.use(cookieSession({
   keys: ['key1']
 }));
 app.use((req, res, next) => {
-  app.locals.userID = (req.session.user_id) ? req.session.user_id : null;
+  app.locals.userID   = (req.session.user_id) ? req.session.user_id : null;
   next();
 });
 
