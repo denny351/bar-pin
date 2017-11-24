@@ -18,18 +18,22 @@ postNewPin = ()=> {
   $submit.on('click', (event) => {
     event.preventDefault();
 
-    let $name = $('#createName').val();
-    let $img = $('#createImage').val();
-    let $description = $('#createDescription').val();
-    let $long = $('#createForm').data('long');
-    let $lat = $('#createForm').data('lat');
+    let name = $('#createName').val();
+    let img = $('#createImage').val();
+    let description = $('#createDescription').val();
+    let long = $('#createForm').data('long');
+    let lat = $('#createForm').data('lat');
 
     $.ajax({
       method: 'POST',
       url: '/api/pins',
       dataType: 'JSON',
-      data: {title: $name, desc: $description, img: $img, lng: $long, lat: $lat}
-    });
+      data: {title: name, desc: description, img: img, lng: long, lat: lat}
+    })
+    .done(function(){
+      $('.createContainer').fadeOut(200);
+    })
+
   });
 }
 
@@ -45,6 +49,7 @@ loginUser = ()=> {
       dataType: 'JSON',
       data: {'userName': username, 'password': password}
     })
+<<<<<<< HEAD
     .done((response) => {
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").css({'right': '0',
@@ -55,6 +60,10 @@ loginUser = ()=> {
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
+=======
+      .done(function(response){
+        console.log(response);
+>>>>>>> d726b4ec13ba3de4cac47aaf1e10b3b3555b85e4
     })
     .fail((jqXHR, textStatus) => {
       $('#inputUsername').val("");
