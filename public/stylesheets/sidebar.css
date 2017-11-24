@@ -10,7 +10,7 @@
 }
 
 .sidebar-nav li {
-  text-indent: 20px;
+  /* text-indent: 20px; */
   line-height: 40px;
 }
 
@@ -35,7 +35,8 @@
   font-size: 40px;
   line-height: 60px;
   color: white;
-  margin: 20px 0 20px 30px;
+  text-align: center;
+  margin: 20px;
 }
 
 form.loginForm {
@@ -57,4 +58,57 @@ form.loginForm {
   color: sandybrown;
   display: inline-flex;
   line-height: 20px;
+}
+/* Login and Register Buttons*/
+#loginButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000;
+}
+
+#loginButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}
+
+#registerButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000; 
+}
+
+#registerButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}
+
+#logoutButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000;
+  /* margin: 10px 0; */
+}
+
+#logoutButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}
+
+#wrapper > header {
+  right: 0;
+  padding: 15px;
+  position: absolute;
+  z-index: 100;
+  color: #ef7500;
+}
+
+#notLoggedInForm > form > div.text-center > img {
+  border-radius: 50%;
+  max-height: 200px;
+  max-width: 200px;
+  margin: 10px 0;
+  border: 0.5px solid #ef7500;
 }

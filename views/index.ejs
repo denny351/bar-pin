@@ -8,14 +8,16 @@
     <link rel="stylesheet" href="/stylesheets/forms.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-
     <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
 
   </head>
 
   <body>
     <div id="wrapper">
-      <header class="welcomeMessage"></header>
+    <%if (userID) {%>
+    <header class="welcomeMessage">Welcome <%= userID%></header>
+    <% } %>
+      
       <!-- SIDEBAR -->
       <div id="sidebar-wrapper">
 
@@ -31,6 +33,24 @@
               <button type="submit" id="registerButton" class="btn btn-primary formButton">Register</button>
               <p class="displayError"></p>
               <% } else { %>
+              
+              <div class="text-center">
+                <img src="../images/img3.jpg" class="rounded" alt="...">
+              </div>
+              <!-- Like Buttons on sidebar -->
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default">Likes</button>
+                </div>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default">All </button>
+                </div>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-default">Fuck It</button>
+                </div>
+              </div>
+
+              
               <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
               <% } %>
             </form>
