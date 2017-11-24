@@ -18,12 +18,12 @@ loginUser = ()=> {
     })
     .done((response) => {
       $("#wrapper").toggleClass("toggled");
-      $(".welcomeMessage").css({'right': '0',
-                                'padding': '15px',
-                                'position': "absolute",
-                                'z-index': "100",
-                                'color': "#ef7500"})
-      $(".welcomeMessage").html(response);
+      // $(".welcomeMessage").css({'right': '0',
+      //                           'padding': '15px',
+      //                           'position': "absolute",
+      //                           'z-index': "100",
+      //                           'color': "#ef7500"})
+      $(".welcomeMessage").append(response);
       clearInputField();
       window.location.reload();
     })
