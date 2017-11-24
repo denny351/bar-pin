@@ -52,13 +52,14 @@ loginUser = ()=> {
     .done((response) => {
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").css({'right': '0',
-                                'padding': '15px',  
+                                'padding': '15px',
                                 'position': "absolute",
                                 'z-index': "100",
                                 'color': "#ef7500"})
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
+      window.location.reload();
     })
     .fail((jqXHR, textStatus) => {
       $('#inputUsername').val("");
@@ -87,6 +88,8 @@ registerUser = () => {
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
+      window.location.reload();
+
     })
     .fail((jqXHR, textStatus) => {
       console.log(jqXHR.responseText);
@@ -99,13 +102,16 @@ registerUser = () => {
 }
 
 logoutUser = ()=> {
-  //Logout handler 
+  //Logout handler
   $("#logoutButton").on("click", (event) => {
     event.preventDefault();
 
     $.ajax({
       url: '/api/users/logout',
-      type: 'POST'
+      type: 'POST',
+      success: () => {
+        window.location.reload();
+      }
     })
    });
 }

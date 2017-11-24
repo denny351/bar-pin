@@ -34,9 +34,31 @@ module.exports = (knex) => {
   router.get("/mypins", (req, res) => {
 
     const userID = req.session.user_id;
-    pinHelpers.getPinsById(knex, userID, (pins) => {
+    pinHelpers.getPinsByUserId(knex, userID, (pins) => {
         res.json(pins);
     });
+  });
+
+  router.put("/:id/update", (req, res) => {
+
+    const updateInfo = {
+      pinID: req.params.id,
+      newTitle: req.body.title,
+      newDesc: req.body.desc,
+      newImg: req.body.img,
+      newLong: req.body.long,
+      newLat: req.body.lat
+    }
+
+    pinHelpers.updatePin(knex, updateInfo, (err) => {
+      if(err) {
+        res.status(500).json("Something went wrong! Please try again.");
+      } else {
+        res.json("Success! Your pin has been updated.");
+
+      }
+    });
+
   });
 
   return router;
