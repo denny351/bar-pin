@@ -37,7 +37,7 @@ app.use("/api/pins", pinsRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.redirect("/index");
+  res.render("landing");
 });
 
 app.get("/index", (req, res) => {
