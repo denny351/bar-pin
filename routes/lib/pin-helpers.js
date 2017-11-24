@@ -11,6 +11,23 @@ module.exports = {
         lat: `${pinInfo.lat}`,
       })
       .then(callback());
+  },
+
+  getAllPins(knex, callback) {
+    knex('*')
+    .from('pins')
+    .then((rows) => {
+      callback(rows);
+    });
+  },
+
+  getPinsById(knex, userID, callback) {
+    knex('*')
+    .from('pins')
+    .where({ user_id: userID })
+    .then((rows) => {
+      callback(rows);
+    });
   }
 
 }

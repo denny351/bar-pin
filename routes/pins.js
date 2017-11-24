@@ -5,8 +5,7 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.post("/", (req, res) => {
-    // the form will pass in title, desc, image, long, lat.. Use req.session.user_id to get the user_id foreign key.
-    console.log(req.body)
+
     const pinInfo = {
       userID: req.session.user_id,
       title: req.body.title,
@@ -22,6 +21,21 @@ module.exports = (knex) => {
       } else {
         res.json(pinInfo);
       }
+    });
+  });
+
+  router.get("/", (req, res) => {
+
+    pinHelpers.getAllPins(knex, (pins) => {
+        res.json(pins);
+    });
+  });
+
+  router.get("/mypins", (req, res) => {
+
+    const userID = req.session.user_id;
+    pinHelpers.getPinsById(knex, userID, (err, pins) => {
+        res.json(pins);
     });
   });
 
