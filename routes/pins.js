@@ -61,5 +61,9 @@ module.exports = (knex) => {
 
   });
 
+  router.delete("/:id/delete", (req, res) => {
+
+  });
+
   return router;
 }
