@@ -13,6 +13,7 @@ const cookieSession = require('cookie-session');
 
 const app = express();
 
+const navRoutes   = require("./routes/navigation");
 const usersRoutes = require("./routes/users");
 const pinsRoutes  = require("./routes/pins");
 
@@ -32,17 +33,9 @@ app.use((req, res, next) => {
 });
 
 // Mount all resource routes
+app.use("/", navRoutes());
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/pins", pinsRoutes(knex));
-
-// Home page
-app.get("/", (req, res) => {
-  res.render("landing");
-});
-
-app.get("/index", (req, res) => {
-  res.render("index");
-});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
