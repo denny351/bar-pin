@@ -96,8 +96,21 @@ function initMap() {
         .done(function(){
           $('.editContainer').fadeOut(200);
         })
-})
+  })
 
+ //DELETE PIN
+  $(document).on('click', '.deleteForm', (event) => {
+    event.preventDefault();
+    var parent = $(event.target).parents('#iw-container');
+      var deleteID = $(parent[0]).data('id');
+      $.ajax({
+        method: 'DELETE',
+        url: `/api/pins/${deleteID}/delete`,
+      })
+      .done(function(){
+        window.location.reload();
+      })
+  })
 
   function generateContent(data) {
     return `<div id="iw-container" data-id=${data.id}>
