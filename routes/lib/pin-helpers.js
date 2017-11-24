@@ -31,7 +31,8 @@ module.exports = {
   },
 
   updatePin(knex, updateInfo, callback) {
-    knex('pins').where('id', updateInfo.pinID)
+    knex('pins')
+    .where('id', updateInfo.pinID)
     .update({
       title: updateInfo.newTitle,
       description: updateInfo.newDesc,
@@ -39,6 +40,15 @@ module.exports = {
       lng: updateInfo.newLong,
       lat: updateInfo.newLat
     })
+    .then(
+      callback()
+    );
+  },
+
+  deletePin(knex, pinID, callback) {
+    knex('pins')
+    .where('id', pinID)
+    .del()
     .then(
       callback()
     );
