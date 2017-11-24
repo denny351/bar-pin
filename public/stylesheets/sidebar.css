@@ -58,3 +58,39 @@ form.loginForm {
   display: inline-flex;
   line-height: 20px;
 }
+/* Login and Register Buttons*/
+#loginButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000;
+}
+
+#loginButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}
+
+#registerButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000; 
+}
+
+#registerButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}
+
+#logoutButton {
+  background-color: #EF7501;
+  border-color: #d36c08;
+  color: #000;
+}
+
+#logoutButton:hover {
+  background-color: #000;
+  border-color: #d36c08;
+  color: #fff;
+}

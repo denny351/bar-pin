@@ -1,3 +1,9 @@
+clearInputField = () => {
+  // To clear username and password inputs
+  $('#inputUsername').val("");
+  $('#inputPassword').val("");
+}
+
 loginUser = ()=> {
   //Login Handler from home page
   $("#loginButton").on("click", (event) => {
@@ -18,13 +24,11 @@ loginUser = ()=> {
                                 'z-index': "100",
                                 'color': "#ef7500"})
       $(".welcomeMessage").html(response);
-      $('#inputUsername').val("");
-      $('#inputPassword').val("");
+      clearInputField();
       window.location.reload();
     })
     .fail((jqXHR, textStatus) => {
-      $('#inputUsername').val("");
-      $('#inputPassword').val("");
+      clearInputField();
       $(".displayError").html(jqXHR.responseText);
     })
   })
@@ -47,8 +51,7 @@ registerUser = () => {
       console.log(response);
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").html(response);
-      $('#inputUsername').val("");
-      $('#inputPassword').val("");
+      clearInputField();
       window.location.reload();
 
     })
@@ -56,8 +59,7 @@ registerUser = () => {
       console.log(jqXHR.responseText);
       console.log(textStatus);
       $(".displayError").html(jqXHR.responseText);
-      $('#inputUsername').val("");
-      $('#inputPassword').val("");
+      clearInputField();
     })
   })
 }
