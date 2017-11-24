@@ -49,7 +49,6 @@ loginUser = ()=> {
       dataType: 'JSON',
       data: {'userName': username, 'password': password}
     })
-<<<<<<< HEAD
     .done((response) => {
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").css({'right': '0',
@@ -60,10 +59,6 @@ loginUser = ()=> {
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
-=======
-      .done(function(response){
-        console.log(response);
->>>>>>> d726b4ec13ba3de4cac47aaf1e10b3b3555b85e4
     })
     .fail((jqXHR, textStatus) => {
       $('#inputUsername').val("");

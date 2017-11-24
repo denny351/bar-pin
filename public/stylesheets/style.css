@@ -193,33 +193,12 @@ form.loginForm {
   width: 300px;
 }
 
-<<<<<<< HEAD
 #notLoggedInForm > form > p {
   color: sandybrown;
   display: inline-flex;
   line-height: 20px;
 }
 
-/*#wrapper > header {
-  float: right;
-  margin-right: 10px;
-  padding: 10px;
-  /* display: none; 
-   display: inline-table; 
-  position: absolute;
-  color: rgba;
-  z-index: 100;
-  color: #de7004;
-}
-*/
-/*.welcomeMessage {
-  right:0;
-  position: absolute,
-  z-index: 100,
-  color: #ef7500,
-  padding: 15px;
-}*/
-=======
 
 /* INFO WINDOW */
 #iw-container {
@@ -253,6 +232,3 @@ form.loginForm {
   margin: 0 5px 5px 10px;
   height: 80px;
 }
-
-
->>>>>>> d726b4ec13ba3de4cac47aaf1e10b3b3555b85e4
