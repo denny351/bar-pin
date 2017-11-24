@@ -30,40 +30,83 @@ function initMap() {
     options.icon = "../images/bar.png";
     return new google.maps.Marker(options);
   }
-    var infoWindow = new google.maps.InfoWindow({
-      maxWidth: 350
+
+  var infoWindow = new google.maps.InfoWindow({
+      maxWidth: 300
     });
 
   //PLACE MARKERS FROM DATABASE
   $.get("/api/pins", function(data) {
-    for(var i = 0; i < data.length; i++){
+    for(let i = 0; i < data.length; i++){
       let myData = data[i];
       let marker = addMarker(myData);
 
-      marker.addListener('click', function(event) {
+      marker.addListener('mouseover', function() {
         infoWindow.setContent(generateContent(myData));
         infoWindow.open(map, marker);
       });
+      // marker.addListener('mouseout', function(event) {
+      //   infoWindow.close(map, marker);
+      // });
     }
   });
 
+  //CLICK FOR EDIT FORM
+  $.get("/api/pins", function(data) {
+    $(document).on('click', '.editForm', (event) => {
+      $(".editContainer").fadeIn(200, 'linear', function() {
+        var parent = $(event.target).parents('#iw-container');
+        id = $(parent[0]).data('id');
+        $(this).find('#editForm').removeAttr("data-id");
+        $(this).find('#editName').val(data[id - 1].title);
+        $(this).find('#editImage').val(data[id - 1].image);
+        $(this).find('#editDescription').val(data[id - 1].description);
+        $(this).find('#editForm').attr("data-id", id);
+        console.log(id)
+      });
+    })
+  })
+
+  //EDIT PIN
+  $('#editPin').on('click', (event) => {
+    event.preventDefault();
+    let name = $('#editName').val();
+    let img = $('#editImage').val();
+    let description = $('#editDescription').val();
+    let clickedID = id ;
+    // let id = $('#editForm').data('id');
+
+    console.log(name, img, description, clickedID)
+    $.ajax({
+          method: 'PUT',
+          url: `/api/pins/${clickedID}`,
+          dataType: 'JSON',
+          data: {title: name, desc: description, img: img}
+        })
+        .done(function(){
+          $('.createContainer').fadeOut(200);
+        })
+})
+
+
   function generateContent(data) {
-    return `<div id="iw-container">
+    return `<div id="iw-container" data-id=${data.id}>
               <div class="iw-title">${data.title}</div>
               <div class="iw-content">
                 <img src=${data.image}>
                 <p>${data.description}</p>
               </div>
-              <a href="#" class="btn btn-danger btn-xs">
-                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                  <span><strong>Delete</strong></span>
-              </a>
-              <a href="#" class="btn btn-primary btn-xs">
+              <button class="deleteForm btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <span><strong>Delete</strong></span>
+              </button>
+              <button class="editForm btn btn-primary btn-xs">
                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                 <span><strong>Edit</strong></span>
-              </a>
+              </button>
             </div>`;
   }
+
 
   // GEOLOCATION FUNCTION
   geolocator(map, infoWindow);
@@ -100,3 +143,16 @@ function initMap() {
   }
 }
 
+
+
+    // google.maps.event.addListener(marker, 'dragend', function (event) {
+    // $.post("/api/pins", function(){
+
+    // var point = marker.getPosition();
+    // map.panTo(point);
+    //   myData.position = {
+    //     lat: point.lat(),
+    //     lng: point.lng()
+    // }
+    // })
+    // });
