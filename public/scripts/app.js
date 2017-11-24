@@ -36,9 +36,7 @@ postNewPin = ()=> {
   });
 }
 
-editPin = ()=> {
 
-}
 
 
 
