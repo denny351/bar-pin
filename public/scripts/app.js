@@ -1,20 +1,21 @@
-function menuToggle() {
+menuToggle = ()=> {
   $("#menu-toggle").click(function(event) {
     event.preventDefault();
     $("#wrapper").toggleClass("toggled");
+    $("#inputUsername").focus();
   });
 }
 
-function cancelForm() {
+cancelForm = ()=> {
   $('.cancel').on("click", function () {
     $(this).parent().parent().fadeOut(200);
   });
 }
 
-function postNewPin() {
+postNewPin = ()=> {
     let $submit = $('#submitPin');
 
-  $submit.on('click', function(event) {
+  $submit.on('click', (event) => {
     event.preventDefault();
 
     let $name = $('#createName').val();
@@ -32,8 +33,9 @@ function postNewPin() {
   });
 }
 
-function loginUser() {
-  $("#loginButton").on("click", function(event){
+loginUser = ()=> {
+  //Login Handler from home page
+  $("#loginButton").on("click", (event) => {
     event.preventDefault();
     const username = $('#inputUsername').val();
     const password = $('#inputPassword').val();
@@ -43,39 +45,58 @@ function loginUser() {
       dataType: 'JSON',
       data: {'userName': username, 'password': password}
     })
-    .done(function(response){
-      console.log(response);
+    .done((response) => {
+      $("#wrapper").toggleClass("toggled");
+      $(".welcomeMessage").css({'right': '0',
+                                'padding': '15px',  
+                                'position': "absolute",
+                                'z-index': "100",
+                                'color': "#ef7500"})
+      $(".welcomeMessage").html(response);
+      $('#inputUsername').val("");
+      $('#inputPassword').val("");
     })
-    .fail(function(jqXHR, textStatus) {
-      console.log(textStatus);
+    .fail((jqXHR, textStatus) => {
+      $('#inputUsername').val("");
+      $('#inputPassword').val("");
+      $(".displayError").html(jqXHR.responseText);
     })
   })
 }
 
-function registerUser() {
-  $("#registerButton").on("click", function(event){
+registerUser = () => {
+  //Register Handler from home page
+  $("#registerButton").on("click", (event) => {
     event.preventDefault();
     const username = $('#inputUsername').val();
     const password = $('#inputPassword').val();
 
-    console.log(username, password);
     $.ajax({
       url: '/api/users/register',
       type: 'PUT',
       dataType: 'JSON',
       data: {'userName': username, 'password': password}
     })
-    .done(function(response){
+    .done((response) => {
       console.log(response);
+      $("#wrapper").toggleClass("toggled");
+      $(".welcomeMessage").html(response);
+      $('#inputUsername').val("");
+      $('#inputPassword').val("");
     })
-    .fail(function(jqXHR, textStatus) {
+    .fail((jqXHR, textStatus) => {
+      console.log(jqXHR.responseText);
       console.log(textStatus);
+      $(".displayError").html(jqXHR.responseText);
+      $('#inputUsername').val("");
+      $('#inputPassword').val("");
     })
   })
 }
 
-function logoutUser(){
-  $("#logoutButton").on("click", function(event){
+logoutUser = ()=> {
+  //Logout handler 
+  $("#logoutButton").on("click", (event) => {
     event.preventDefault();
 
     $.ajax({
@@ -85,7 +106,8 @@ function logoutUser(){
    });
 }
 
-$(function() {
+$(() => {
+  //Document ready function
   menuToggle();
   loginUser();
   registerUser();
