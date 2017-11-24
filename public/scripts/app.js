@@ -13,7 +13,7 @@ cancelForm = ()=> {
 }
 
 postNewPin = ()=> {
-    let $submit = $('#submitPin');
+  let $submit = $('#submitPin');
 
   $submit.on('click', (event) => {
     event.preventDefault();
@@ -33,9 +33,13 @@ postNewPin = ()=> {
     .done(function(){
       $('.createContainer').fadeOut(200);
     })
-
   });
 }
+
+editPin = ()=> {
+
+}
+
 
 
 $(() => {
@@ -43,4 +47,5 @@ $(() => {
   menuToggle();
   cancelForm();
   postNewPin();
+  // editPin();
 });
