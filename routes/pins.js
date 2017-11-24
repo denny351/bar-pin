@@ -34,7 +34,7 @@ module.exports = (knex) => {
   router.get("/mypins", (req, res) => {
 
     const userID = req.session.user_id;
-    pinHelpers.getPinsById(knex, userID, (err, pins) => {
+    pinHelpers.getPinsById(knex, userID, (pins) => {
         res.json(pins);
     });
   });

@@ -16,6 +16,7 @@ addNewUser: function(knex, userInfo, callback) {
     .insert({ username: `${userInfo.name}`, password: `${userInfo.pass}` })
     .returning('id')
     .then(function(id) {
+      console.log(id[0]);
       callback(id);
     });
   }

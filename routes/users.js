@@ -20,7 +20,7 @@ module.exports = (knex) => {
             res.status(400).json("This username already exists.");
           } else {
             userHelpers.addNewUser(knex, userInfo, (id) => {
-              req.session.user_id = id;
+              req.session.user_id = id[0];
               res.json(`Welcome, ${userInfo.name}`);
             });
           }
