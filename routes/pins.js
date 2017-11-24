@@ -55,14 +55,19 @@ module.exports = (knex) => {
         res.status(500).json("Something went wrong! Please try again.");
       } else {
         res.json("Success! Your pin has been updated.");
-
       }
     });
-
   });
 
   router.delete("/:id/delete", (req, res) => {
-
+    const pinID = req.params.id;
+    pinHelpers.deletePin(knex, pinID, (err) => {
+      if(err) {
+        res.status(500).json("Something went wrong! Please try again.");
+      } else {
+        res.json("Success! Your pin has been deleted.");
+      }
+    });
   });
 
   return router;
