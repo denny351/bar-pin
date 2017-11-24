@@ -59,6 +59,7 @@ loginUser = ()=> {
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
+      window.location.reload();
     })
     .fail((jqXHR, textStatus) => {
       $('#inputUsername').val("");
@@ -87,6 +88,8 @@ registerUser = () => {
       $(".welcomeMessage").html(response);
       $('#inputUsername').val("");
       $('#inputPassword').val("");
+      window.location.reload();
+
     })
     .fail((jqXHR, textStatus) => {
       console.log(jqXHR.responseText);
@@ -105,7 +108,10 @@ logoutUser = ()=> {
 
     $.ajax({
       url: '/api/users/logout',
-      type: 'POST'
+      type: 'POST',
+      success: () => {
+        window.location.reload();
+      }
     })
    });
 }

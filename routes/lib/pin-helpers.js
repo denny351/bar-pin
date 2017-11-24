@@ -21,13 +21,26 @@ module.exports = {
     });
   },
 
-  getPinsById(knex, userID, callback) {
+  getPinsByUserId(knex, userID, callback) {
     knex('*')
     .from('pins')
     .where({ user_id: userID })
     .then((rows) => {
       callback(rows);
     });
-  }
+  },
 
+  updatePin(knex, updateInfo, callback) {
+    knex('pins').where('id', updateInfo.pinID)
+    .update({
+      title: updateInfo.newTitle,
+      description: updateInfo.newDesc,
+      image: updateInfo.newImg,
+      lng: updateInfo.newLong,
+      lat: updateInfo.newLat
+    })
+    .then(
+      callback()
+    );
+  }
 }
