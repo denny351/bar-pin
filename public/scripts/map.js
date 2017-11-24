@@ -1,4 +1,3 @@
-
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 49.281902, lng: -123.108317},
@@ -37,13 +36,11 @@ function initMap() {
 
   //PLACE MARKERS FROM DATABASE
   $.get("/api/pins", function(data) {
-    console.log(data);
     for(var i = 0; i < data.length; i++){
       let myData = data[i];
       let marker = addMarker(myData);
-      console.log(marker);
+
       marker.addListener('click', function(event) {
-        console.log("fuck");
         infoWindow.setContent(generateContent(myData));
         infoWindow.open(map, marker);
       });
@@ -57,6 +54,14 @@ function initMap() {
                 <img src=${data.image}>
                 <p>${data.description}</p>
               </div>
+              <a href="#" class="btn btn-danger btn-xs">
+                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <span><strong>Delete</strong></span>
+              </a>
+              <a href="#" class="btn btn-primary btn-xs">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                <span><strong>Edit</strong></span>
+              </a>
             </div>`;
   }
 

@@ -62,7 +62,7 @@ module.exports = (knex) => {
 
   router.post("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/index");
+    res.redirect(req.get('referer'));
   });
 
   // GET ALL PINS FOR A GIVEN USER

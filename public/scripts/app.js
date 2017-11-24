@@ -52,7 +52,7 @@ loginUser = ()=> {
     .done((response) => {
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").css({'right': '0',
-                                'padding': '15px',  
+                                'padding': '15px',
                                 'position': "absolute",
                                 'z-index': "100",
                                 'color': "#ef7500"})
@@ -99,7 +99,7 @@ registerUser = () => {
 }
 
 logoutUser = ()=> {
-  //Logout handler 
+  //Logout handler
   $("#logoutButton").on("click", (event) => {
     event.preventDefault();
 
