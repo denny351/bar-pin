@@ -132,7 +132,7 @@ function initMap() {
       });
   });
 
-  // SHOW THE LOGGED-IN USER'S PINS
+  // FILTER - SHOW THE LOGGED-IN USER'S PINS
   $(".my-bars").on("click", (event) => {
     markers.forEach((marker) => {
         marker.setMap(null);
@@ -177,6 +177,53 @@ function initMap() {
     });
   });
 
+
+  // SHOW USERNAME SEARCH INPUT
+
+  $(".user-bars").on("click", (event) => {
+    $.get("/api/users", function(data) {
+      $(".user-search").toggleClass(".user-search-on");
+      let options = "";
+      data.forEach((user) => {
+        options += `<option value ="${user}">`
+      })
+      $('.user-search').append(
+        `<input class="form-control" placeholder="Search Username" list="usernames" name="username">
+         <button class="btn btn-default btn-secondary">Search</button>
+        <datalist id="usernames">
+          ${options}
+        </datalist>`
+      )
+    });
+  });
+
+  // GET A SPECIFIED USERS PINS
+
+  $('.user-search').submit(function(event) {
+    event.preventDefault();
+    const $data = $('.user-search :input').val();
+    markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    $(this).remove();
+    $.get(`/api/users/${$data}/pins`, function(data) {
+      console.log(data);
+      markers = [];
+      for(let i = 0; i < data.length; i++){
+        let myData = data[i];
+        let marker = addMarker(myData);
+        markers.push(marker);
+
+        marker.setMap(map);
+
+
+        marker.addListener('mouseover', function() {
+          infoWindow.setContent(generateContent(myData));
+          infoWindow.open(map, marker);
+        });
+      }
+    });
+  });
 
   // GEOLOCATION FUNCTION
   geolocator(map, infoWindow);

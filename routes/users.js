@@ -67,10 +67,22 @@ module.exports = (knex) => {
 
   // GET ALL PINS FOR A GIVEN USER
 
-   router.get("/:id/pins", (req, res) => {
-    const userID = req.params.id;
-    pinHelpers.getPinsById(knex, userID, (pins) => {
+  router.get("/:username/pins", (req, res) => {
+    const userName = req.params.username;
+    pinHelpers.getPinsByUserName(knex, userName, (pins) => {
       res.json(pins);
+    });
+  });
+
+   // GET ALL USERNAMES FOR USER FILTER
+
+  router.get("/", (req, res) => {
+    userHelpers.getUserList(knex, (users) => {
+      let userList = [];
+      users.forEach((user) => {
+        userList.push(user.username);
+      });
+      res.json(userList);
     });
   });
 
