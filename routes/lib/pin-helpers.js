@@ -21,11 +21,11 @@ module.exports = {
     });
   },
 
-  getPinsByUserId(knex, userID, callback) {
-    knex('*')
-    .from('pins')
-    .where({ user_id: userID })
-    .then((rows) => {
+  getPinsByUserName(knex, userName, callback) {
+    knex('users')
+    .join('pins', 'users.id', '=', 'pins.user_id')
+    .select('*')
+    .where({ 'users.username': userName}).then((rows) => {
       callback(rows);
     });
   },
