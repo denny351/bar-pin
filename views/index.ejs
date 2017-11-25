@@ -17,7 +17,7 @@
     <%if (userID) {%>
     <header class="welcomeMessage">Welcome <%= userID%></header>
     <% } %>
-      
+
       <!-- SIDEBAR -->
       <div id="sidebar-wrapper">
 
@@ -33,24 +33,24 @@
               <button type="submit" id="registerButton" class="btn btn-primary formButton">Register</button>
               <p class="displayError"></p>
               <% } else { %>
-              
+
               <div class="text-center">
-                <img src="../images/img3.jpg" class="rounded" alt="...">
+                <!-- <img src="/images/img3.jpg" class="rounded" alt="..."> -->
               </div>
               <!-- Like Buttons on sidebar -->
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default">Likes</button>
+                  <button type="button" class="btn btn-default btn-primary">My Bars</button>
                 </div>
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default">All </button>
+                  <button type="button" class="btn btn-default btn-primary">All Bars</button>
                 </div>
                 <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default">Fuck It</button>
+                  <button type="button" class="btn btn-default btn-primary">Search</button>
                 </div>
               </div>
 
-              
+
               <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
               <% } %>
             </form>

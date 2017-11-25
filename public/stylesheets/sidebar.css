@@ -75,7 +75,7 @@ form.loginForm {
 #registerButton {
   background-color: #EF7501;
   border-color: #d36c08;
-  color: #000; 
+  color: #000;
 }
 
 #registerButton:hover {
@@ -105,10 +105,17 @@ form.loginForm {
   color: #ef7500;
 }
 
-#notLoggedInForm > form > div.text-center > img {
+#notLoggedInForm > form > div.text-center {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlqKKQorJU5VQ8OFJJzKsnIpqvd37jB9OTg0HG5U8-RPEGl__mZg");
   border-radius: 50%;
-  max-height: 200px;
-  max-width: 200px;
-  margin: 10px 0;
+  background-size: cover;
+  height: 150px;
+  width: 150px;
+  margin: 10px auto 30px auto;
   border: 0.5px solid #ef7500;
+}
+
+#notLoggedInForm > form > p {
+  font-size: 20px;
+  margin: 0 auto;
 }
