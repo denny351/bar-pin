@@ -92,8 +92,7 @@ form.loginForm {
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
-  margin-top: 70%;
-  margin-bottom: 10%;
+  margin-top: 40vh;
 }
 
 #logoutButton:hover {
