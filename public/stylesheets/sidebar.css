@@ -92,7 +92,8 @@ form.loginForm {
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
-  /* margin: 10px 0; */
+  margin-top: 70%;
+  margin-bottom: 10%;
 }
 
 #logoutButton:hover {
@@ -109,7 +110,7 @@ form.loginForm {
   color: #ef7500;
 }
 
-#notLoggedInForm > form > div.text-center {
+#notLoggedInForm > form > div.userImage {
   background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlqKKQorJU5VQ8OFJJzKsnIpqvd37jB9OTg0HG5U8-RPEGl__mZg");
   border-radius: 50%;
   background-size: cover;
