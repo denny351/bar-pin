@@ -72,7 +72,7 @@ function initMap() {
           method: 'PUT',
           url: `/api/pins/${myData.id}/update`,
           dataType: 'JSON',
-          data: {lat: event.latLng.lat(), lng: event.latLng.lng()}
+          data: {lat: event.latLng.lat(), long: event.latLng.lng()}
         });
       });
     };
