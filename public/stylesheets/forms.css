@@ -2,7 +2,7 @@
 
 .createContainer, .editContainer {
   width: 390px;
-  height: 350px;
+  height: 390px;
   z-index: 99;
   position: absolute;
   left: 0;
@@ -25,6 +25,7 @@
 }
 
 #createForm .btn, #editForm .btn {
+  width: 300px;
   margin-bottom: 5px;
 }
 
@@ -34,6 +35,7 @@
   width: 300px;
 }
 
-#typeRadio {
-
+#typeRadio label {
+  margin-left: 3px;
+  margin-right: 6px;
 }
