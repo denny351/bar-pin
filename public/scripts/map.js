@@ -7,19 +7,13 @@ function initMap() {
     styles: [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":"35"},{"gamma":"1"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"lightness":"-11"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"color":"#e37f00"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"visibility":"simplified"}]},{"featureType":"poi.park","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#475058"},{"lightness":"-48"},{"saturation":"-73"},{"weight":"3.98"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"lightness":"7"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"lightness":"63"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16},{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"lightness":"-8"},{"gamma":"1.73"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"lightness":"-1"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"lightness":"24"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#475058"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#d1e0e9"},{"lightness":"-70"},{"saturation":"-75"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":"-54"},{"hue":"#ff0000"}]}]
   });
 
+
   // RIGHT CLICK ON MAP FOR NEW PIN
   google.maps.event.addListener(map, 'rightclick', (event) => {
-    if (confirm("Do you want to pin a bar here?")){
       $(".createContainer").fadeIn(650, 'linear', function() {
         $("#createName").focus();
       });
       $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
-      var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        icon: "../images/bar.png"
-      });
-    };
   });
 
   function generateContent(data) {
@@ -44,7 +38,8 @@ function initMap() {
     options.map = map;
     options.draggable = true;
     options.clickable = true;
-    options.icon = "../images/bar.png";
+    options.animation = google.maps.Animation.DROP;
+
     return new google.maps.Marker(options);
   };
 
@@ -53,10 +48,7 @@ function initMap() {
       lat: options.lat,
       lng: options.lng
     };
-
-    // if(options.type){
-    // options.icon = `../images/${options.type}.png`;
-    // }
+    options.icon = `../images/${options.type}.png`;
     return createMarker(options);
   };
 
@@ -65,26 +57,59 @@ function initMap() {
   //PLACE MARKERS, INFOWINDOW, AND DRAG & DROP FEATURE
   $.get("/api/pins", (data) => {
     for(let i = 0; i < data.length; i++){
-      let myData = data[i];
-      let marker = addMarker(myData);
-      markers.push(marker);
-      console.log(marker)
+      // window.setTimeout(function(){
+        let myData = data[i];
+        let marker = addMarker(myData);
 
-      marker.addListener('click', () => {
-        infoWindow.setContent(generateContent(myData));
-        infoWindow.open(map, marker);
-      });
+        markers.push(marker);
 
-      google.maps.event.addListener(marker, 'dragend', (event) => {
-        $.ajax({
-          method: 'PUT',
-          url: `/api/pins/${myData.id}/update`,
-          dataType: 'JSON',
-          data: {lat: event.latLng.lat(), long: event.latLng.lng()}
+        marker.addListener('click', () => {
+          infoWindow.setContent(generateContent(myData));
+          infoWindow.open(map, marker);
         });
-      });
+
+        google.maps.event.addListener(marker, 'dragend', (event) => {
+          $.ajax({
+            method: 'PUT',
+            url: `/api/pins/${myData.id}/update`,
+            dataType: 'JSON',
+            data: {lat: event.latLng.lat(), long: event.latLng.lng()}
+          }, 3000);
+        });
+      // });
     };
   });
+
+  //SUBMIT NEW PIN
+  $('#submitPin').on('click', (event) => {
+    event.preventDefault();
+
+    let name = $('#createName').val();
+    let img = $('#createImage').val();
+    let description = $('#createDescription').val();
+    let long = $('#createForm').data('long');
+    let lat = $('#createForm').data('lat');
+    let type = $("input[name='barType']:checked").val();
+
+    $.ajax({
+      method: 'POST',
+      url: '/api/pins',
+      dataType: 'JSON',
+      data: {title: name, desc: description, img: img, lng: long, lat: lat, type: type}
+    })
+    .done(function(){
+      $('.createContainer').fadeOut(200);
+      addMarker({lat: lat, lng: long, type: type});
+      $('#createName').val("");
+      $('#createImage').val("");
+      $('#createDescription').val("");
+      $('#createForm').removeData();
+      $('#createForm').removeData();
+      $('input[name="barType"]').prop('checked', false);
+
+    })
+  });
+
 
   //OPEN EDIT FORM
   $.get("/api/pins", (data) => {
@@ -263,4 +288,5 @@ function initMap() {
       infoWindow.open(map);
     };
   };
+
 };
