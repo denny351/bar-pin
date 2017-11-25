@@ -23,6 +23,7 @@ postNewPin = ()=> {
     let description = $('#createDescription').val();
     let long = $('#createForm').data('long');
     let lat = $('#createForm').data('lat');
+    let type = $('')
 
     $.ajax({
       method: 'POST',

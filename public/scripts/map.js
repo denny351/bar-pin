@@ -58,7 +58,7 @@ function initMap() {
 
   var infoWindow = new google.maps.InfoWindow({maxWidth: 300});
 
-  //PLACE MARKERS AND INFOWINDOW FROM DATABASE
+  //PLACE MARKERS, INFOWINDOW, AND DRAG & DROP FEATURE
   $.get("/api/pins", (data) => {
     for(let i = 0; i < data.length; i++){
       let myData = data[i];
@@ -81,7 +81,7 @@ function initMap() {
     };
   });
 
-  //CLICK FOR EDIT FORM
+  //OPEN EDIT FORM
   $.get("/api/pins", (data) => {
     $(document).on('click', '.editForm', (event) => {
       var parent = $(event.target).parents('#iw-container');
