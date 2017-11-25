@@ -1,3 +1,5 @@
+var markers = [];
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 49.281902, lng: -123.108317},
@@ -46,6 +48,7 @@ function initMap() {
     for(let i = 0; i < data.length; i++){
       let myData = data[i];
       let marker = addMarker(myData);
+      markers.push(marker);
 
       marker.addListener('mouseover', function() {
         infoWindow.setContent(generateContent(myData));
@@ -129,6 +132,27 @@ function initMap() {
               </button>
             </div>`;
   }
+
+  // SHOW THE LOGGED-IN USER'S PINS
+  $(".my-bars").on("click", (event) => {
+    markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    $.get("/api/pins/mypins", function(data) {
+      console.log(data);
+      for(let i = 0; i < data.length; i++){
+        let myData = data[i];
+        let marker = addMarker(myData);
+        marker.setMap(map);
+
+
+        marker.addListener('mouseover', function() {
+          infoWindow.setContent(generateContent(myData));
+          infoWindow.open(map, marker);
+        });
+      }
+    });
+  });
 
 
   // GEOLOCATION FUNCTION
