@@ -54,7 +54,6 @@ form.loginForm {
 
 .formButton {
   width: 60%;
-  margin-left: 40px;
 }
 
 
@@ -65,6 +64,8 @@ form.loginForm {
 }
 /* Login and Register Buttons*/
 #loginButton {
+  margin: 10px auto;
+  display:block;
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
@@ -77,6 +78,8 @@ form.loginForm {
 }
 
 #registerButton {
+  margin: 10px auto;
+  display:block;
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
