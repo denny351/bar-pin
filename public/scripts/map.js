@@ -138,10 +138,34 @@ function initMap() {
         marker.setMap(null);
       });
     $.get("/api/pins/mypins", function(data) {
-      console.log(data);
+      markers = [];
       for(let i = 0; i < data.length; i++){
         let myData = data[i];
         let marker = addMarker(myData);
+        marker.setMap(map);
+        markers.push[marker];
+
+        marker.addListener('mouseover', function() {
+          infoWindow.setContent(generateContent(myData));
+          infoWindow.open(map, marker);
+        });
+      }
+    });
+  });
+
+  // FILTER - SHOW ALL USER'S PINS
+
+   $(".all-bars").on("click", (event) => {
+    markers.forEach((marker) => {
+        marker.setMap(null);
+      });
+    $.get("/api/pins", function(data) {
+      markers = [];
+      for(let i = 0; i < data.length; i++){
+        let myData = data[i];
+        let marker = addMarker(myData);
+        markers.push(marker);
+
         marker.setMap(map);
 
 
