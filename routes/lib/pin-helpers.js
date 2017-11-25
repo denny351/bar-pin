@@ -9,6 +9,7 @@ module.exports = {
         image: `${pinInfo.image}`,
         lng: `${pinInfo.long}`,
         lat: `${pinInfo.lat}`,
+        type: `${pinInfo.type}`
       })
       .then(callback());
   },

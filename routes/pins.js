@@ -12,7 +12,8 @@ module.exports = (knex) => {
       description: req.body.desc,
       image: req.body.img,
       long: req.body.lng,
-      lat: req.body.lat
+      lat: req.body.lat,
+      type: req.boody.type
     }
 
     pinHelpers.addNewPin(knex, pinInfo, (err) => {
