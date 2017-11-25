@@ -8,7 +8,7 @@ function initMap() {
   });
 
   // RIGHT CLICK ON MAP FOR NEW PIN
-  google.maps.event.addListener(map, 'rightclick', function(event) {
+  google.maps.event.addListener(map, 'rightclick', (event) => {
     if (confirm("Do you want to pin a bar here?")){
       $(".createContainer").fadeIn(650, 'linear', function() {
         $("#createName").focus();
@@ -19,101 +19,8 @@ function initMap() {
         map: map,
         icon: "../images/bar.png"
       });
-
-    }
+    };
   });
-
-  function addMarker(options) {
-    options.position = {
-      lat: options.lat,
-      lng: options.lng
-    }
-    return createMarker(options);
-  }
-
-  function createMarker(options) {
-    options.map = map;
-    options.draggable = true;
-    options.clickable = true;
-    options.icon = "../images/bar.png";
-    return new google.maps.Marker(options);
-  }
-
-  var infoWindow = new google.maps.InfoWindow({
-      maxWidth: 300
-    });
-
-  //PLACE MARKERS FROM DATABASE
-  $.get("/api/pins", function(data) {
-    for(let i = 0; i < data.length; i++){
-      let myData = data[i];
-      let marker = addMarker(myData);
-      markers.push(marker);
-
-      marker.addListener('mouseover', function() {
-        infoWindow.setContent(generateContent(myData));
-        infoWindow.open(map, marker);
-      });
-      // marker.addListener('mouseout', function(event) {
-      //   infoWindow.close(map, marker);
-      // });
-    }
-  });
-
-  //CLICK FOR EDIT FORM
-  $.get("/api/pins", function(data) {
-    $(document).on('click', '.editForm', (event) => {
-      var parent = $(event.target).parents('#iw-container');
-      id = $(parent[0]).data('id');
-      for(let j = 0; j < data.length; j++){
-        if(id === data[j].id){
-          $(".editContainer").fadeIn(200, 'linear', function() {
-
-            $(this).find('#editName').val(data[j].title);
-            $(this).find('#editImage').val(data[j].image);
-            $(this).find('#editDescription').val(data[j].description);
-            // $(this).find('#editForm').attr("data-id", id);
-            console.log(id)
-          })
-        }
-      }
-    })
-  })
-
-  //EDIT PIN
-  $('#editPin').on('click', (event) => {
-    event.preventDefault();
-    let name = $('#editName').val();
-    let img = $('#editImage').val();
-    let description = $('#editDescription').val();
-    let clickedID = id ;
-    // let id = $('#editForm').data('id');
-
-    console.log(name, img, description, clickedID)
-    $.ajax({
-          method: 'PUT',
-          url: `/api/pins/${clickedID}/update`,
-          dataType: 'JSON',
-          data: {title: name, desc: description, img: img}
-        })
-        .done(function(){
-          $('.editContainer').fadeOut(200);
-        })
-  })
-
- //DELETE PIN
-  $(document).on('click', '.deleteForm', (event) => {
-    event.preventDefault();
-    var parent = $(event.target).parents('#iw-container');
-      var deleteID = $(parent[0]).data('id');
-      $.ajax({
-        method: 'DELETE',
-        url: `/api/pins/${deleteID}/delete`,
-      })
-      .done(function(){
-        window.location.reload();
-      })
-  })
 
   function generateContent(data) {
     return `<div id="iw-container" data-id=${data.id}>
@@ -131,7 +38,99 @@ function initMap() {
                 <span><strong>Edit</strong></span>
               </button>
             </div>`;
-  }
+  };
+
+  function createMarker(options) {
+    options.map = map;
+    options.draggable = true;
+    options.clickable = true;
+    options.icon = "../images/bar.png";
+    return new google.maps.Marker(options);
+  };
+
+  function addMarker(options) {
+    options.position = {
+      lat: options.lat,
+      lng: options.lng
+    };
+    return createMarker(options);
+  };
+
+  var infoWindow = new google.maps.InfoWindow({maxWidth: 300});
+
+  //PLACE MARKERS AND INFOWINDOW FROM DATABASE
+  $.get("/api/pins", (data) => {
+    for(let i = 0; i < data.length; i++){
+      let myData = data[i];
+      let marker = addMarker(myData);
+      markers.push(marker);
+
+      marker.addListener('click', () => {
+        infoWindow.setContent(generateContent(myData));
+        infoWindow.open(map, marker);
+      });
+
+      google.maps.event.addListener(marker, 'dragend', (event) => {
+        $.ajax({
+          method: 'PUT',
+          url: `/api/pins/${myData.id}/update`,
+          dataType: 'JSON',
+          data: {lat: event.latLng.lat(), long: event.latLng.lng()}
+        });
+      });
+    };
+  });
+
+  //CLICK FOR EDIT FORM
+  $.get("/api/pins", (data) => {
+    $(document).on('click', '.editForm', (event) => {
+      var parent = $(event.target).parents('#iw-container');
+      editID = $(parent[0]).data('id');
+
+      for(let j = 0; j < data.length; j++){
+        if(editID === data[j].id){
+          $(".editContainer").fadeIn(200, 'linear', () => {
+            $(this).find('#editName').val(data[j].title);
+            $(this).find('#editImage').val(data[j].image);
+            $(this).find('#editDescription').val(data[j].description);
+          });
+        };
+      };
+    });
+  });
+
+  //EDIT PIN
+  $('#editPin').on('click', (event) => {
+    event.preventDefault();
+    let name = $('#editName').val();
+    let img = $('#editImage').val();
+    let description = $('#editDescription').val();
+    let clickedID = editID;
+
+    $.ajax({
+      method: 'PUT',
+      url: `/api/pins/${clickedID}/update`,
+      dataType: 'JSON',
+      data: {title: name, desc: description, img: img}
+    })
+    .done(function(){
+      $('.editContainer').fadeOut(200);
+    });
+  });
+
+  //DELETE PIN
+  $(document).on('click', '.deleteForm', (event) => {
+    event.preventDefault();
+    var parent = $(event.target).parents('#iw-container');
+      var deleteID = $(parent[0]).data('id');
+      $.ajax({
+        method: 'DELETE',
+        url: `/api/pins/${deleteID}/delete`,
+      })
+      .done(() => {
+        window.location.reload();
+      });
+  });
 
   // SHOW THE LOGGED-IN USER'S PINS
   $(".my-bars").on("click", (event) => {
@@ -186,20 +185,6 @@ function initMap() {
       infoWindow.setPosition(pos);
       infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
       infoWindow.open(map);
-    }
-  }
-}
-
-
-
-    // google.maps.event.addListener(marker, 'dragend', function (event) {
-    // $.post("/api/pins", function(){
-
-    // var point = marker.getPosition();
-    // map.panTo(point);
-    //   myData.position = {
-    //     lat: point.lat(),
-    //     lng: point.lng()
-    // }
-    // })
-    // });
+    };
+  };
+};
