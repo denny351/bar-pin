@@ -26,6 +26,7 @@
 
           <li id="notLoggedInForm">
             <form class="loginForm">
+            <!-- Login Form -->
               <%if (!userID) {%>
               <input type="text" class="form-control" id="inputUsername" placeholder="Username" required>
               <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
@@ -34,8 +35,7 @@
               <p class="displayError"></p>
               <% } else { %>
 
-              <div class="text-center">
-                <!-- <img src="/images/img3.jpg" class="rounded" alt="..."> -->
+              <div class="userImage">
               </div>
               <!-- Like Buttons on sidebar -->
               <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -49,8 +49,7 @@
                   <button type="button" class="btn btn-default btn-primary user-bars">Search</button>
                 </div>
               </div>
-
-
+            <!-- Logout Button -->
               <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
               <% } %>
             </form>
