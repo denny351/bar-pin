@@ -53,6 +53,10 @@ function initMap() {
       lat: options.lat,
       lng: options.lng
     };
+
+    // if(options.type){
+    // options.icon = `../images/${options.type}.png`;
+    // }
     return createMarker(options);
   };
 
@@ -90,9 +94,9 @@ function initMap() {
       for(let j = 0; j < data.length; j++){
         if(editID === data[j].id){
           $(".editContainer").fadeIn(200, 'linear', () => {
-            $(this).find('#editName').val(data[j].title);
-            $(this).find('#editImage').val(data[j].image);
-            $(this).find('#editDescription').val(data[j].description);
+            $(".editContainer").find('#editName').val(data[j].title);
+            $(".editContainer").find('#editImage').val(data[j].image);
+            $(".editContainer").find('#editDescription').val(data[j].description);
           });
         };
       };
