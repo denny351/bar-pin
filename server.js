@@ -10,6 +10,7 @@ const knex          = require("knex")(knexConfig[ENV]);
 const morgan        = require('morgan');
 const knexLogger    = require('knex-logger');
 const cookieSession = require('cookie-session');
+const userHelpers   = require('./routes/lib/user-helpers');
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.use((req, res, next) => {
   app.locals.userID   = (req.session.user_id) ? req.session.user_id : null;
   next();
 });
+
+  console.log(app.locals.usernames);
 
 // Mount all resource routes
 app.use("/", navRoutes());

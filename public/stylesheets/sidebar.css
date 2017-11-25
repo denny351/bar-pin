@@ -54,7 +54,6 @@ form.loginForm {
 
 .formButton {
   width: 60%;
-  margin-left: 40px;
 }
 
 
@@ -65,6 +64,8 @@ form.loginForm {
 }
 /* Login and Register Buttons*/
 #loginButton {
+  margin: 10px auto;
+  display:block;
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
@@ -77,6 +78,8 @@ form.loginForm {
 }
 
 #registerButton {
+  margin: 10px auto;
+  display:block;
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
@@ -92,8 +95,10 @@ form.loginForm {
   background-color: #EF7501;
   border-color: #d36c08;
   color: #000;
-  margin-top: 70%;
-  margin-bottom: 10%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  bottom: 10px;
 }
 
 #logoutButton:hover {
@@ -123,4 +128,20 @@ form.loginForm {
 #notLoggedInForm > form > p {
   font-size: 20px;
   margin: 0 auto;
+}
+
+.user-search input {
+  height: 25px;
+  width: 80%;
+  margin: 10px auto 0 auto;
+}
+
+.user-search button {
+  padding: 2px;
+  height: 20px;
+  line-height: 10px;
+}
+
+#notLoggedInForm {
+  text-align: center;
 }

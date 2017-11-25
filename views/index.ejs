@@ -27,7 +27,7 @@
           <li id="notLoggedInForm">
             <form class="loginForm">
             <!-- Login Form -->
-              <%if (!userID) {%>
+              <% if (!userID) { %>
               <input type="text" class="form-control" id="inputUsername" placeholder="Username" required>
               <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
               <button type="submit" id="loginButton" class="btn btn-primary formButton">Sign in</button>
@@ -49,10 +49,12 @@
                   <button type="button" class="btn btn-default btn-primary user-bars">Search</button>
                 </div>
               </div>
-            <!-- Logout Button -->
-              <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
-              <% } %>
             </form>
+            <form class="user-search"></form>
+            <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
+
+              <% } %>
+
           </li>
         </ul>
 
