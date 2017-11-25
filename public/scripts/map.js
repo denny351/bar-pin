@@ -100,6 +100,13 @@ function initMap() {
     .done(function(){
       $('.createContainer').fadeOut(200);
       addMarker({lat: lat, lng: long, type: type});
+      $('#createName').val("");
+      $('#createImage').val("");
+      $('#createDescription').val("");
+      $('#createForm').removeData();
+      $('#createForm').removeData();
+      $('input[name="barType"]').prop('checked', false);
+
     })
   });
 
