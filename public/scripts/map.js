@@ -68,6 +68,7 @@ function initMap() {
       let myData = data[i];
       let marker = addMarker(myData);
       markers.push(marker);
+      console.log(marker)
 
       marker.addListener('click', () => {
         infoWindow.setContent(generateContent(myData));
@@ -91,12 +92,12 @@ function initMap() {
       var parent = $(event.target).parents('#iw-container');
       editID = $(parent[0]).data('id');
 
-      for(let j = 0; j < data.length; j++){
-        if(editID === data[j].id){
+      for(let i = 0; i < data.length; i++){
+        if(editID === data[i].id){
           $(".editContainer").fadeIn(200, 'linear', () => {
-            $(".editContainer").find('#editName').val(data[j].title);
-            $(".editContainer").find('#editImage').val(data[j].image);
-            $(".editContainer").find('#editDescription').val(data[j].description);
+            $(".editContainer").find('#editName').val(data[i].title);
+            $(".editContainer").find('#editImage').val(data[i].image);
+            $(".editContainer").find('#editDescription').val(data[i].description);
           });
         };
       };

@@ -46,5 +46,7 @@ $(() => {
   menuToggle();
   cancelForm();
   postNewPin();
+  console.log(document.cookie);
+  console.log(Cookies.get());
   // editPin();
 });
