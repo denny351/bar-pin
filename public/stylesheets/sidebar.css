@@ -1,5 +1,9 @@
 /* SIDEBAR STYLES */
 
+#sidebar-wrapper > ul > li.sidebar-brand > img {
+  height: 45px;
+}
+
 .sidebar-nav {
   position: absolute;
   top: 0;
