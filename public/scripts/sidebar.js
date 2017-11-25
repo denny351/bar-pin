@@ -79,6 +79,7 @@ logoutUser = ()=> {
    });
 }
 
+
 $(() => {
   //Document ready function
   loginUser();
