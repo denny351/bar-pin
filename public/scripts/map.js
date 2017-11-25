@@ -53,12 +53,16 @@ function initMap() {
       lat: options.lat,
       lng: options.lng
     };
+
+    // if(options.type){
+    // options.icon = `../images/${options.type}.png`;
+    // }
     return createMarker(options);
   };
 
   var infoWindow = new google.maps.InfoWindow({maxWidth: 300});
 
-  //PLACE MARKERS AND INFOWINDOW FROM DATABASE
+  //PLACE MARKERS, INFOWINDOW, AND DRAG & DROP FEATURE
   $.get("/api/pins", (data) => {
     for(let i = 0; i < data.length; i++){
       let myData = data[i];
@@ -81,7 +85,7 @@ function initMap() {
     };
   });
 
-  //CLICK FOR EDIT FORM
+  //OPEN EDIT FORM
   $.get("/api/pins", (data) => {
     $(document).on('click', '.editForm', (event) => {
       var parent = $(event.target).parents('#iw-container');
@@ -90,9 +94,9 @@ function initMap() {
       for(let j = 0; j < data.length; j++){
         if(editID === data[j].id){
           $(".editContainer").fadeIn(200, 'linear', () => {
-            $(this).find('#editName').val(data[j].title);
-            $(this).find('#editImage').val(data[j].image);
-            $(this).find('#editDescription').val(data[j].description);
+            $(".editContainer").find('#editName').val(data[j].title);
+            $(".editContainer").find('#editImage').val(data[j].image);
+            $(".editContainer").find('#editDescription').val(data[j].description);
           });
         };
       };
