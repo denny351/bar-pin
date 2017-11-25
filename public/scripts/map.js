@@ -61,16 +61,14 @@ function initMap() {
   $.get("/api/pins", function(data) {
     $(document).on('click', '.editForm', (event) => {
       var parent = $(event.target).parents('#iw-container');
-      id = $(parent[0]).data('id');
+      editID = $(parent[0]).data('id');
       for(let j = 0; j < data.length; j++){
-        if(id === data[j].id){
+        if(editID === data[j].id){
           $(".editContainer").fadeIn(200, 'linear', function() {
 
             $(this).find('#editName').val(data[j].title);
             $(this).find('#editImage').val(data[j].image);
             $(this).find('#editDescription').val(data[j].description);
-            // $(this).find('#editForm').attr("data-id", id);
-            console.log(id)
           })
         }
       }
@@ -83,10 +81,8 @@ function initMap() {
     let name = $('#editName').val();
     let img = $('#editImage').val();
     let description = $('#editDescription').val();
-    let clickedID = id ;
-    // let id = $('#editForm').data('id');
+    let clickedID = editID;
 
-    console.log(name, img, description, clickedID)
     $.ajax({
           method: 'PUT',
           url: `/api/pins/${clickedID}/update`,
