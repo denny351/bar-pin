@@ -9,17 +9,10 @@ function initMap() {
 
   // RIGHT CLICK ON MAP FOR NEW PIN
   google.maps.event.addListener(map, 'rightclick', (event) => {
-    if (confirm("Do you want to pin a bar here?")){
       $(".createContainer").fadeIn(650, 'linear', function() {
         $("#createName").focus();
       });
       $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
-      var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        icon: "../images/bar.png"
-      });
-    };
   });
 
   function generateContent(data) {
@@ -44,7 +37,8 @@ function initMap() {
     options.map = map;
     options.draggable = true;
     options.clickable = true;
-    options.icon = "../images/bar.png";
+    options.animation = google.maps.Animation.DROP;
+
     return new google.maps.Marker(options);
   };
 
@@ -53,10 +47,7 @@ function initMap() {
       lat: options.lat,
       lng: options.lng
     };
-
-    // if(options.type){
-    // options.icon = `../images/${options.type}.png`;
-    // }
+    options.icon = `../images/${options.type}.png`;
     return createMarker(options);
   };
 
@@ -85,6 +76,30 @@ function initMap() {
       });
     };
   });
+
+  //SUBMIT NEW PIN
+  $('#submitPin').on('click', (event) => {
+    event.preventDefault();
+
+    let name = $('#createName').val();
+    let img = $('#createImage').val();
+    let description = $('#createDescription').val();
+    let long = $('#createForm').data('long');
+    let lat = $('#createForm').data('lat');
+    let type = $("input[name='barType']:checked").val();
+
+    $.ajax({
+      method: 'POST',
+      url: '/api/pins',
+      dataType: 'JSON',
+      data: {title: name, desc: description, img: img, lng: long, lat: lat, type: type}
+    })
+    .done(function(){
+      $('.createContainer').fadeOut(200);
+      addMarker({lat: lat, lng: long, type: type});
+    })
+  });
+
 
   //OPEN EDIT FORM
   $.get("/api/pins", (data) => {
@@ -263,4 +278,5 @@ function initMap() {
       infoWindow.open(map);
     };
   };
+
 };
