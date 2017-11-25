@@ -70,13 +70,23 @@
         <form id="createForm" >
           <h2>Pin A Bar On The Map!</h2>
           <div class="form-group">
-            <input id="createName" name="name" type="text" placeholder="Name" required>
+            <input id="createName" class="textInput" name="name" type="text" placeholder="Name" required>
           </div>
           <div class="form-group">
-            <input id="createImage" name="image" type="url" placeholder="<Img url>">
+            <input id="createImage" class="textInput" name="image" type="url" placeholder="<Img url>">
           </div>
           <div class="form-group">
-            <textarea id="createDescription" name="description" placeholder="Please enter some descriptions"></textarea>
+            <textarea id="createDescription" class="textInput" name="description" placeholder="Please enter some descriptions"></textarea>
+          </div>
+          <div id="typeRadio" class="form-group">
+            <input type="radio" id="contactChoice1" name="contact" value="email">
+            <label for="contactChoice1">Email</label>
+            <input type="radio" id="contactChoice2" name="contact" value="phone">
+            <label for="contactChoice2">Phone</label>
+            <input type="radio" id="contactChoice3" name="contact" value="mail">
+            <label for="contactChoice3">Mail</label>
+            <input type="radio" id="contactChoice3" name="contact" value="mail">
+            <label for="contactChoice3">Mail</label>
           </div>
           <input id="submitPin" class="btn btn-default" type="submit" value="Submit">
           <input class="cancel btn btn-default" value="Cancel">
@@ -88,13 +98,13 @@
         <form id="editForm" >
           <h2>Edit Your Pin!</h2>
           <div class="form-group">
-            <input id="editName" name="name" type="text" required>
+            <input id="editName" class="textInput" name="name" type="text" required>
           </div>
           <div class="form-group">
-            <input id="editImage" name="image" type="url">
+            <input id="editImage" class="textInput" name="image" type="url">
           </div>
           <div class="form-group">
-            <textarea id="editDescription" name="description"></textarea>
+            <textarea id="editDescription" class="textInput" name="description"></textarea>
           </div>
           <input id="editPin" class="btn btn-default" type="submit" value="Edit">
           <input class="cancel btn btn-default" value="Cancel">

@@ -17,6 +17,7 @@ body {
   z-index: 99;
   color: white;
 }
+
 #menu-toggle:hover {
   font-size: 35px;
   position: fixed;

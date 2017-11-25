@@ -20,7 +20,7 @@
    text-align: center;
 }
 
-#createForm input, #editForm input {
+#createForm .textInput, #editForm .textInput {
   width: 300px;
 }
 
@@ -34,4 +34,6 @@
   width: 300px;
 }
 
+#typeRadio {
 
+}
