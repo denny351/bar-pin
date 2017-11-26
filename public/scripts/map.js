@@ -43,10 +43,10 @@ function initMap() {
 
   // RIGHT CLICK ON MAP FOR NEW PIN
   google.maps.event.addListener(map, 'rightclick', (event) => {
-      $(".createContainer").fadeIn(650, 'linear', function() {
-        $("#createName").focus();
-      });
-      $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
+    $(".createContainer").fadeIn(650, 'linear', function() {
+      $("#createName").focus();
+    });
+    $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
   });
 
   function generateContent(data) {
@@ -72,7 +72,6 @@ function initMap() {
     options.draggable = true;
     options.clickable = true;
     options.animation = google.maps.Animation.DROP;
-
     return new google.maps.Marker(options);
   };
 
@@ -85,6 +84,7 @@ function initMap() {
     return createMarker(options);
   };
 
+  // PLACE MARKERS AND INFOWINDOWS WITH DRAG & DROP FEATURE
   function placeAllMarkers(data) {
     for(let i = 0; i < data.length; i++){
       window.setTimeout(function(){
@@ -110,7 +110,7 @@ function initMap() {
     };
   }
 
-  // PLACE MARKERS AND INFOWINDOW WITH DRAG & DROP FEATURE
+  // PLACE ALL MARKERS ON PAGE LOAD
   $.get("/api/pins", (APIData) => {
     placeAllMarkers(APIData);
   });
@@ -132,16 +132,19 @@ function initMap() {
       dataType: 'JSON',
       data: {title: name, desc: description, img: img, lng: long, lat: lat, type: type}
     })
-    .done(function(){
+    .done(function(data){
       $('.createContainer').fadeOut(200);
-      addMarker({lat: lat, lng: long, type: type});
       $('#createName').val("");
       $('#createImage').val("");
       $('#createDescription').val("");
       $('#createForm').removeData();
       $('#createForm').removeData();
       $('#barType1').prop('checked', true);
-
+      var newMarker = addMarker({lat: lat, lng: long, type: type});
+      newMarker.addListener('click', () => {
+        infoWindow.setContent(generateContent(data));
+        infoWindow.open(map, newMarker);
+      });
     })
   });
 
@@ -187,14 +190,14 @@ function initMap() {
   $(document).on('click', '.deleteForm', (event) => {
     event.preventDefault();
     var parent = $(event.target).parents('#iw-container');
-      var deleteID = $(parent[0]).data('id');
-      $.ajax({
-        method: 'DELETE',
-        url: `/api/pins/${deleteID}/delete`,
-      })
-      .done(() => {
-        window.location.reload();
-      });
+    var deleteID = $(parent[0]).data('id');
+    $.ajax({
+      method: 'DELETE',
+      url: `/api/pins/${deleteID}/delete`,
+    })
+    .done(() => {
+      window.location.reload();
+    });
   });
 
   // FILTER - SHOW THE LOGGED-IN USER'S PINS
@@ -209,8 +212,7 @@ function initMap() {
   });
 
   // FILTER - SHOW ALL USER'S PINS
-
-   $(".all-bars").on("click", (event) => {
+  $(".all-bars").on("click", (event) => {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
@@ -222,14 +224,13 @@ function initMap() {
 
 
   // SHOW USERNAME SEARCH INPUT
-
   $(".user-bars").on("click", (event) => {
     $.get("/api/users", function(data) {
       $(".user-search").toggleClass(".user-search-on");
       let options = "";
       data.forEach((user) => {
         options += `<option value ="${user}">`
-      })
+      });
       $('.user-search').slideToggle("slow", function() {
         $('#usernames').html(options);
       });
@@ -237,7 +238,6 @@ function initMap() {
   });
 
   // GET A SPECIFIED USERS PINS
-
   $('.user-search').submit(function(event) {
     event.preventDefault();
     const $data = $('.user-search :input').val();
