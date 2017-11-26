@@ -50,6 +50,7 @@ function initMap() {
   });
 
   function generateContent(data) {
+    console.log(data.id);
     return `<div id="iw-container" data-id=${data.id}>
               <div class="iw-title">${data.title}</div>
               <div class="iw-content">
@@ -204,17 +205,15 @@ function initMap() {
     });
   });
 
-  //FAVORITE PIN -- Fixing it
+  //FAVORITE PIN
   $(document).on("click", '#favId', function(event) {
     var parent = $(event.target).parents('#iw-container');
-    console.log(parent);
+    console.log(parent[0]);
     var pinId = $(parent[0]).data('id');
+    console.log(pinId);
     $.ajax({
       url: `/api/favorites/${pinId}`,
-      method: 'PUT',
-      success: function (data) {
-        console.log('success!');
-      }
+      method: 'PUT'
     });
   });
 
@@ -223,8 +222,8 @@ function initMap() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
+    markers = [];
     $.get("/api/pins/mypins", function(APIData) {
-      markers = [];
       placeAllMarkers(APIData);
     });
   });
@@ -234,12 +233,24 @@ function initMap() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
+    markers = [];
     $.get("/api/pins", function(APIData) {
-      markers = [];
       placeAllMarkers(APIData);
     });
   });
 
+  // FILTER - SHOW LOGGED IN USER'S FAVORITE PINS
+
+  $(".fav-bars").on("click", (event) => {
+    markers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    markers = [];
+    $.get("/api/pins/myfavs", function(APIData) {
+      console.log(APIData)
+      placeAllMarkers(APIData);
+    });
+  });
 
   // SHOW USERNAME SEARCH INPUT
   $(".user-bars").on("click", (event) => {
@@ -262,8 +273,8 @@ function initMap() {
     markers.forEach((marker) => {
       marker.setMap(null);
     });
+    markers = [];
     $.get(`/api/users/${$data}/pins`, function(APIData) {
-      markers = [];
       placeAllMarkers(APIData);
     });
   });

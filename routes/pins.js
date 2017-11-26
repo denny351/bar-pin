@@ -1,5 +1,6 @@
 const pinHelpers = require('./lib/pin-helpers');
 const userHelpers = require('./lib/user-helpers');
+const favHelpers = require('./lib/favorite-helpers');
 const express = require('express');
 const router  = express.Router();
 
@@ -38,6 +39,27 @@ module.exports = (knex) => {
     const userID = req.session.user_id;
     pinHelpers.getPinsByUserId(knex, userID, (pins) => {
         res.json(pins);
+    });
+  });
+
+  router.get("/myfavs", (req, res) => {
+    const userID = req.session.user_id;
+    favHelpers.getUserFavsById(knex, userID, (pins) => {
+      let data = [];
+      pins.forEach((pin) => {
+        let object = {
+          'id': pin.pin_id,
+          'title': pin.title,
+          'description': pin.description,
+          'image': pin.image,
+          'lat': pin.lat,
+          'lng': pin.lng,
+          'type': pin.type,
+          'user_id': pin.user_id
+        }
+        data.push(object);
+      });
+      res.json(data);
     });
   });
 

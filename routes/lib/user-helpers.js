@@ -20,7 +20,6 @@ module.exports = {
     .insert({ username: `${userInfo.name}`, password: `${userInfo.pass}` })
     .returning('id')
     .then(function(id) {
-      console.log(id[0]);
       callback(id);
     });
   },

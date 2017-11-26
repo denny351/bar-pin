@@ -24,5 +24,16 @@ module.exports = {
       .then((rows) => {
         callback(rows)
       });
+  },
+
+  getUserFavsById(knex, userID, callback) {
+    knex('pins')
+      .join('favourites', 'pins.id', '=', 'favourites.pin_id')
+      .join('users', 'users.id', '=', 'favourites.user_id')
+      .select('*')
+      .from('pins')
+      .where({ 'users.id': userID}).then((rows) => {
+        callback(rows);
+      });
   }
 }
