@@ -1,11 +1,44 @@
 var markers = [];
 
 function initMap() {
+
+  // INITIALIZE MAP
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 49.281902, lng: -123.108317},
     zoom: 13,
     styles: [{"featureType":"all","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"all","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":"35"},{"gamma":"1"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"color":"#000000"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"administrative.locality","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.locality","elementType":"geometry.fill","stylers":[{"lightness":"-11"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"color":"#e37f00"}]},{"featureType":"administrative.land_parcel","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"labels.text.stroke","stylers":[{"visibility":"simplified"}]},{"featureType":"poi.park","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#475058"},{"lightness":"-48"},{"saturation":"-73"},{"weight":"3.98"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"lightness":"7"}]},{"featureType":"road.arterial","elementType":"labels.text.fill","stylers":[{"lightness":"63"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16},{"visibility":"off"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"lightness":"-8"},{"gamma":"1.73"}]},{"featureType":"road.local","elementType":"geometry.stroke","stylers":[{"lightness":"-1"}]},{"featureType":"road.local","elementType":"labels.text.fill","stylers":[{"lightness":"24"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#475058"},{"lightness":17}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#d1e0e9"},{"lightness":"-70"},{"saturation":"-75"}]},{"featureType":"water","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"lightness":"-54"},{"hue":"#ff0000"}]}]
   });
+
+  var infoWindow = new google.maps.InfoWindow({maxWidth: 300});
+
+  // GEOLOCATION FUNCTION
+  if (navigator.geolocation) {
+    const callback = function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('You are here!');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    };
+
+    const errback = function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    };
+
+    navigator.geolocation.getCurrentPosition(callback, errback);
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+  };
 
 
   // RIGHT CLICK ON MAP FOR NEW PIN
@@ -52,9 +85,7 @@ function initMap() {
     return createMarker(options);
   };
 
-  var infoWindow = new google.maps.InfoWindow({maxWidth: 300});
-
-  //PLACE MARKERS, INFOWINDOW, AND DRAG & DROP FEATURE
+  // PLACE MARKERS AND INFOWINDOW WITH DRAG & DROP FEATURE
   $.get("/api/pins", (data) => {
     for(let i = 0; i < data.length; i++){
       window.setTimeout(function(){
@@ -76,11 +107,11 @@ function initMap() {
             data: {lat: event.latLng.lat(), long: event.latLng.lng()}
           });
         });
-      }, i * 333);
+      }, i * 1500/data.length);
     };
   });
 
-  //SUBMIT NEW PIN
+  // SUBMIT NEW PIN
   $('#submitPin').on('click', (event) => {
     event.preventDefault();
 
@@ -105,13 +136,13 @@ function initMap() {
       $('#createDescription').val("");
       $('#createForm').removeData();
       $('#createForm').removeData();
-      $('input[name="barType"]').prop('checked', false);
+      $('#barType1').prop('checked', true);
 
     })
   });
 
 
-  //OPEN EDIT FORM
+  // OPEN EDIT FORM
   $.get("/api/pins", (data) => {
     $(document).on('click', '.editForm', (event) => {
       var parent = $(event.target).parents('#iw-container');
@@ -129,7 +160,7 @@ function initMap() {
     });
   });
 
-  //EDIT PIN
+  // EDIT PIN
   $('#editPin').on('click', (event) => {
     event.preventDefault();
     let name = $('#editName').val();
@@ -148,7 +179,7 @@ function initMap() {
     });
   });
 
-  //DELETE PIN
+  // DELETE PIN
   $(document).on('click', '.deleteForm', (event) => {
     event.preventDefault();
     var parent = $(event.target).parents('#iw-container');
@@ -254,39 +285,5 @@ function initMap() {
       }
     });
   });
-
-  // GEOLOCATION FUNCTION
-  geolocator(map, infoWindow);
-
-  function geolocator(map, infoWindow) {
-    if (navigator.geolocation) {
-      const callback = function(position) {
-        var pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here!');
-        infoWindow.open(map);
-        map.setCenter(pos);
-      };
-
-      const errback = function() {
-        handleLocationError(true, infoWindow, map.getCenter());
-      };
-
-      navigator.geolocation.getCurrentPosition(callback, errback);
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
-      infoWindow.open(map);
-    };
-  };
 
 };
