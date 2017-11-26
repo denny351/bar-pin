@@ -17,6 +17,7 @@ const app = express();
 const navRoutes   = require("./routes/navigation");
 const usersRoutes = require("./routes/users");
 const pinsRoutes  = require("./routes/pins");
+const favoritesRoutes  = require("./routes/favorites");
 
 app.use(morgan('dev'));
 app.use(knexLogger(knex));
@@ -28,17 +29,17 @@ app.use(cookieSession({
   name: 'user_id',
   keys: ['key1']
 }));
+
 app.use((req, res, next) => {
   app.locals.userID   = (req.session.user_id) ? req.session.user_id : null;
   next();
 });
 
-  console.log(app.locals.usernames);
-
 // Mount all resource routes
 app.use("/", navRoutes());
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/pins", pinsRoutes(knex));
+app.use("/api/favorites", favoritesRoutes(knex));
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

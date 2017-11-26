@@ -29,6 +29,10 @@ function initMap() {
                 <img src=${data.image}>
                 <p>${data.description}</p>
               </div>
+              <button id="favId" class="btn btn-danger btn-xs">
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+                <span><strong>FAV</strong></span>
+              </button>
               <button class="deleteForm btn btn-danger btn-xs">
                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 <span><strong>Delete</strong></span>
@@ -130,6 +134,20 @@ function initMap() {
       .done(() => {
         window.location.reload();
       });
+  });
+
+  //FAVORITE PIN -- Fixing it
+  $(document).on("click", '#favId', function(event) {
+    var parent = $(event.target).parents('#iw-container');
+    console.log(parent);
+    var pinId = $(parent[0]).data('id');
+    $.ajax({
+      url: `/api/favorites/${pinId}`,
+      method: 'PUT',
+      success: function (data) {
+        console.log('success!');
+      }
+    });
   });
 
   // FILTER - SHOW THE LOGGED-IN USER'S PINS
