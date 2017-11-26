@@ -40,7 +40,7 @@ module.exports = (knex) => {
     });
   });
 
-  router.put("/:id/update", (req, res) => {
+  router.put("/:id/update",[userHelpers.userLoggedIn], (req, res) => {
 
     const updateInfo = {
       pinID: req.params.id,
@@ -60,7 +60,7 @@ module.exports = (knex) => {
     });
   });
 
-  router.delete("/:id/delete", (req, res) => {
+  router.delete("/:id/delete", [userHelpers.userLoggedIn], (req, res) => {
     const pinID = req.params.id;
     pinHelpers.deletePin(knex, pinID, (err) => {
       if(err) {
