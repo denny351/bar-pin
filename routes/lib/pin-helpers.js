@@ -31,6 +31,14 @@ module.exports = {
     });
   },
 
+  getPinsByUserId(knex, userID, callback) {
+    knex('pins')
+    .where('user_id', userID)
+    .then((pins) => {
+      callback(pins)
+    });
+  },
+
   updatePin(knex, updateInfo, callback) {
     knex('pins')
     .where('id', updateInfo.pinID)

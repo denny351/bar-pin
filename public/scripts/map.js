@@ -235,7 +235,6 @@ function initMap() {
     markers.forEach((marker) => {
         marker.setMap(null);
       });
-    $(this).remove();
     $.get(`/api/users/${$data}/pins`, function(data) {
       console.log(data);
       markers = [];
@@ -252,6 +251,9 @@ function initMap() {
           infoWindow.open(map, marker);
         });
       }
+      $.done(function() {
+        $(this).remove();
+      });
     });
   });
 
