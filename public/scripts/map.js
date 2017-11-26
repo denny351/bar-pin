@@ -200,8 +200,8 @@ function initMap() {
   // FILTER - SHOW THE LOGGED-IN USER'S PINS
   $(".my-bars").on("click", (event) => {
     markers.forEach((marker) => {
-        marker.setMap(null);
-      });
+      marker.setMap(null);
+    });
     $.get("/api/pins/mypins", function(APIData) {
       markers = [];
       placeAllMarkers(APIData);
@@ -212,8 +212,8 @@ function initMap() {
 
    $(".all-bars").on("click", (event) => {
     markers.forEach((marker) => {
-        marker.setMap(null);
-      });
+      marker.setMap(null);
+    });
     $.get("/api/pins", function(APIData) {
       markers = [];
       placeAllMarkers(APIData);
@@ -242,10 +242,9 @@ function initMap() {
     event.preventDefault();
     const $data = $('.user-search :input').val();
     markers.forEach((marker) => {
-        marker.setMap(null);
-      });
+      marker.setMap(null);
+    });
     $.get(`/api/users/${$data}/pins`, function(APIData) {
-      console.log(data);
       markers = [];
       placeAllMarkers(APIData);
     });
