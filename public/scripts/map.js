@@ -204,7 +204,7 @@ function initMap() {
         let myData = data[i];
         let marker = addMarker(myData);
         marker.setMap(map);
-        markers.push[marker];
+        markers.push(marker);
 
         marker.addListener('mouseover', function() {
           infoWindow.setContent(generateContent(myData));
@@ -263,7 +263,6 @@ function initMap() {
         marker.setMap(null);
       });
     $.get(`/api/users/${$data}/pins`, function(data) {
-      console.log(data);
       markers = [];
       for(let i = 0; i < data.length; i++){
         let myData = data[i];
