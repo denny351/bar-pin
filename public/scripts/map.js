@@ -143,7 +143,6 @@ function initMap() {
       $('#createImage').val("");
       $('#createDescription').val("");
       $('#createForm').removeData();
-      $('#createForm').removeData();
       $('#barType1').prop('checked', true);
       var newMarker = addMarker({lat: lat, lng: long, type: type});
       newMarker.addListener('click', () => {

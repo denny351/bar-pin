@@ -1,10 +1,10 @@
 /* CREATE PIN FORM */
 
+
 .createContainer, .editContainer {
-  width: 390px;
-  height: 390px;
   z-index: 99;
   position: absolute;
+  overflow:hidden;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -12,12 +12,13 @@
   margin-top: 20vh;
   background-color: #e7e7e7;
   border-radius: 50px;
-  box-shadow: 0 0 10 4 rgba(0,0,0,0.50);
+  width: 390px;
   display: none;
 }
 
 #createForm, #editForm {
-   text-align: center;
+  text-align: center;
+  height: 390px;
 }
 
 #createForm .textInput, #editForm .textInput {
@@ -38,4 +39,23 @@
 #typeRadio label {
   margin-left: 3px;
   margin-right: 6px;
+}
+
+#notLoggedIn {
+  text-align: center;
+  margin: 0;
+}
+
+#notLoggedIn > span {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin-right: 19px;
+  margin-top: 6px;
+  font-size: 17px;
+}
+
+#notLoggedIn > span:hover {
+  color: #630000;
+  cursor: pointer;
 }
