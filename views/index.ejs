@@ -49,7 +49,15 @@
                 </div>
               </div>
             </form>
-            <form class="user-search"></form>
+
+            <form class="user-search" style="display: none">
+              <input class="form-control" placeholder="Search Username" list="usernames" name="username">
+              <button class="btn btn-default btn-secondary">Search</button>
+              <datalist id="usernames">
+              ${options}
+              </datalist>
+            </form>
+
             <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
               <% } %>
 
