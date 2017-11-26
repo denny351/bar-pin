@@ -1,4 +1,5 @@
 const pinHelpers = require('./lib/pin-helpers');
+const userHelpers = require('./lib/user-helpers');
 const express = require('express');
 const router  = express.Router();
 

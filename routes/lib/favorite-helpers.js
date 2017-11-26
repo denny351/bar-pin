@@ -3,7 +3,7 @@ module.exports = {
 		knex("favourites")
 			.insert({
         user_id: `${favInfo.userID}`,
-        pin_id: `${favInfo.pinID}`  
+        pin_id: `${favInfo.pinID}`
       })
       .then(callback());
 	},

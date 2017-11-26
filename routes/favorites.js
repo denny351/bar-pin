@@ -3,8 +3,8 @@ const router = express.Router();
 const favHelpers = require('./lib/favorite-helpers');
 
 module.exports = (knex) => {
-	router.put("/:pinId", (req, res) => {
-		const favInfo = {
+  router.put("/:pinId", (req, res) => {
+    const favInfo = {
     userID: req.session.user_id,
     pinID: JSON.parse(req.params.pinId)
     };
@@ -15,23 +15,23 @@ module.exports = (knex) => {
       let favorited = false;
       if (rows.length) {
         rows.forEach((row) => {
-          if (row.pin_id === favInfo.pinID) {
+          if (Number(row.pin_id) === favInfo.pinID) {
             favorited = true;
           }
         });
-      } 
+      }
       console.log(favorited);
       if (favorited) {
-        favHelpers.deleteFavoritePin(knex, favInfo, (err) => {  
+        favHelpers.deleteFavoritePin(knex, favInfo, (err) => {
           if (err) throw err;
         });
       } else {
         favHelpers.addFavoritePin(knex, favInfo, (err) => {
           if (err) throw err;
-        });  
+        });
       }
     });
-	})
+  })
 
   return router;
 }

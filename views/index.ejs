@@ -3,12 +3,13 @@
   <head>
     <title>Home Page</title>
 
-    <link rel="stylesheet" href="/stylesheets/index.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/sidebar.css" type="text/css" />
     <link rel="stylesheet" href="/stylesheets/forms.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/stylesheets/index.css" type="text/css" />
 
   </head>
 
@@ -36,19 +37,17 @@
               <% } else { %>
               <div class="userImage">
               </div>
-              <!-- Like Buttons on sidebar -->
-              <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default btn-primary my-bars">My Bars</button>
-                </div>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default btn-primary all-bars">All Bars</button>
-                </div>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-default btn-primary user-bars">Search</button>
-                </div>
-              </div>
+
             </form>
+
+            <!-- Like Buttons on sidebar -->
+            <h1 class="sidebar-header">Show Me</h1>
+              <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+                  <button type="button" class="btn btn-default all-bars filter-btn">All Bars</button>
+                  <button type="button" class="btn btn-default my-bars filter-btn">My Bars</button>
+                  <button type="button" class="btn btn-default fav-bars filter-btn">My Favs</button>
+                  <button type="button" class="btn btn-default user-bars filter-btn">Search</button>
+              </div>
 
             <form class="user-search" style="display: none">
               <input class="form-control" placeholder="Search Username" list="usernames" name="username">
@@ -57,11 +56,12 @@
               </datalist>
             </form>
 
-            <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
-              <% } %>
-
           </li>
         </ul>
+
+           <button type="submit" id="logoutButton" class="btn btn-primary formButton">Logout</button>
+
+           <% } %>
 
       </div>
 

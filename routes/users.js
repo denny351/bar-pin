@@ -7,7 +7,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  router.put("/register", [userHelpers.userLoggedIn], (req, res) => {
+  router.put("/register", (req, res) => {
 
     const userInfo = {
       'name': req.body.userName,
@@ -37,7 +37,6 @@ module.exports = (knex) => {
       'pass': req.body.password
     }
 
-    if(!req.session.user_id) {
       if (userInfo.name && userInfo.pass) {
         userHelpers.findUserFromName(knex, userInfo.name, (user) => {
           if(!user.length) {
@@ -52,9 +51,6 @@ module.exports = (knex) => {
       } else {
         res.status(400).json("You can't submit an empty form.");
       }
-    } else {
-      res.status(400).json("You're already logged in!");
-    }
   });
 
   router.post("/logout", (req, res) => {

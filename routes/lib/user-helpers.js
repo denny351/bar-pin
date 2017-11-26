@@ -1,7 +1,7 @@
 module.exports = {
 
   userLoggedIn: function(req, res, next) {
-    req.session.user_id ? next() : res.status(401).json("Your not able to perform that action.");
+    req.session.user_id ? next() : res.status(401).json("You must be logged in to perform that action!");
   },
 
   findUserFromName: function(knex, name, callback) {
