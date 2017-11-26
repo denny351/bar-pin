@@ -57,7 +57,7 @@ function initMap() {
   //PLACE MARKERS, INFOWINDOW, AND DRAG & DROP FEATURE
   $.get("/api/pins", (data) => {
     for(let i = 0; i < data.length; i++){
-      // window.setTimeout(function(){
+      window.setTimeout(function(){
         let myData = data[i];
         let marker = addMarker(myData);
 
@@ -74,9 +74,9 @@ function initMap() {
             url: `/api/pins/${myData.id}/update`,
             dataType: 'JSON',
             data: {lat: event.latLng.lat(), long: event.latLng.lng()}
-          }, 3000);
+          });
         });
-      // });
+      }, i * 333);
     };
   });
 
@@ -144,7 +144,7 @@ function initMap() {
       data: {title: name, desc: description, img: img}
     })
     .done(function(){
-      $('.editContainer').fadeOut(200);
+      window.location.reload();
     });
   });
 
