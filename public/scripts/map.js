@@ -85,8 +85,7 @@ function initMap() {
     return createMarker(options);
   };
 
-  // PLACE MARKERS AND INFOWINDOW WITH DRAG & DROP FEATURE
-  $.get("/api/pins", (data) => {
+  function placeAllMarkers(data) {
     for(let i = 0; i < data.length; i++){
       window.setTimeout(function(){
         let myData = data[i];
@@ -109,6 +108,11 @@ function initMap() {
         });
       }, i * 1500/data.length);
     };
+  }
+
+  // PLACE MARKERS AND INFOWINDOW WITH DRAG & DROP FEATURE
+  $.get("/api/pins", (APIData) => {
+    placeAllMarkers(APIData);
   });
 
   // SUBMIT NEW PIN
@@ -198,19 +202,9 @@ function initMap() {
     markers.forEach((marker) => {
         marker.setMap(null);
       });
-    $.get("/api/pins/mypins", function(data) {
+    $.get("/api/pins/mypins", function(APIData) {
       markers = [];
-      for(let i = 0; i < data.length; i++){
-        let myData = data[i];
-        let marker = addMarker(myData);
-        marker.setMap(map);
-        markers.push[marker];
-
-        marker.addListener('mouseover', function() {
-          infoWindow.setContent(generateContent(myData));
-          infoWindow.open(map, marker);
-        });
-      }
+      placeAllMarkers(APIData);
     });
   });
 
@@ -220,21 +214,9 @@ function initMap() {
     markers.forEach((marker) => {
         marker.setMap(null);
       });
-    $.get("/api/pins", function(data) {
+    $.get("/api/pins", function(APIData) {
       markers = [];
-      for(let i = 0; i < data.length; i++){
-        let myData = data[i];
-        let marker = addMarker(myData);
-        markers.push(marker);
-
-        marker.setMap(map);
-
-
-        marker.addListener('mouseover', function() {
-          infoWindow.setContent(generateContent(myData));
-          infoWindow.open(map, marker);
-        });
-      }
+      placeAllMarkers(APIData);
     });
   });
 
@@ -262,22 +244,10 @@ function initMap() {
     markers.forEach((marker) => {
         marker.setMap(null);
       });
-    $.get(`/api/users/${$data}/pins`, function(data) {
+    $.get(`/api/users/${$data}/pins`, function(APIData) {
       console.log(data);
       markers = [];
-      for(let i = 0; i < data.length; i++){
-        let myData = data[i];
-        let marker = addMarker(myData);
-        markers.push(marker);
-
-        marker.setMap(map);
-
-
-        marker.addListener('mouseover', function() {
-          infoWindow.setContent(generateContent(myData));
-          infoWindow.open(map, marker);
-        });
-      }
+      placeAllMarkers(APIData);
     });
   });
 
