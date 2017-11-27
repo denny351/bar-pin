@@ -45,7 +45,7 @@ function initMap() {
     $(".createContainer").fadeIn(650, 'linear', function() {
       $("#createName").focus();
     });
-    $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat());
+    $("#createForm").attr("data-long", event.latLng.lng()).attr("data-lat", event.latLng.lat()); //Combine
   });
 
   // FUNCTION TO GENERATE INFO WINDOW CONTENT
@@ -135,7 +135,7 @@ function initMap() {
       method: 'POST',
       url: '/api/pins',
       dataType: 'JSON',
-      data: {title: name, desc: description, img: img, lng: long, lat: lat, type: type}
+      data: {title: name, desc: description, img: img, lng: long, lat: lat, type: type} //variable
     })
     .done(function(data){
       $('.createContainer').fadeOut(200);
@@ -189,9 +189,9 @@ function initMap() {
       $('.editContainer').fadeOut(200);
     })
     .fail(() => {
-      $('#edit-delete-error').css({ display: 'block' })
+      $('#edit-delete-error').show();
       setTimeout(function() {
-        $('#edit-delete-error').css({ display: 'none' })
+        $('#edit-delete-error').hide();
       }, 3000);
     })
   });
@@ -209,9 +209,9 @@ function initMap() {
       window.location.reload();
     })
     .fail(() => {
-      $('#edit-delete-error').css({ display: 'block' })
+      $('#edit-delete-error').show()
       setTimeout(function() {
-        $('#edit-delete-error').css({ display: 'none' })
+        $('#edit-delete-error').hide()
       }, 3000);
     })
   });
@@ -279,7 +279,7 @@ function initMap() {
   });
 
   // GET A SPECIFIED USERS PINS
-  $('.user-search').submit(function(event) {
+  $('.user-search').submit(function(event) { //.on
     event.preventDefault();
     const $data = $('.user-search :input').val();
     markers.forEach((marker) => {

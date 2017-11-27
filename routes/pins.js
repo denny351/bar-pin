@@ -29,7 +29,7 @@ module.exports = (knex) => {
 
   router.get("/", (req, res) => {
 
-    pinHelpers.getAllPins(knex, (pins) => {
+    pinHelpers.getAllPins(knex, (pins) => { //res.json
         res.json(pins);
     });
   });
@@ -49,7 +49,7 @@ module.exports = (knex) => {
   router.get("/myfavs", [userHelpers.userLoggedIn], (req, res) => {
     const userID = req.session.user_id;
     favHelpers.getUserFavsById(knex, userID, (pins) => {
-      let data = [];
+      let data = []; // use .map
       pins.forEach((pin) => {
         let object = {
           'id': pin.pin_id,

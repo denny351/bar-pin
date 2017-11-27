@@ -13,9 +13,9 @@ module.exports = {
       .where({
         pin_id: `${favInfo.pinID}`,
         user_id: `${favInfo.userID}`
-        })
+      })
       .del()
-      .then(callback());
+      .then(callback);
   },
 
 	findFavPin(knex, favInfo, callback) {

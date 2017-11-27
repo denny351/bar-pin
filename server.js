@@ -32,11 +32,11 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   app.locals.userID = (req.session.user_id) ? req.session.user_id : null;
-  if (req.body.userName) {
+  if (req.body.userName) { //userName
     app.locals.username = req.body.userName;
   } else if (req.session.user_id) {
     knex('username').from('users').where('id', req.session.user_id).then((user) => {
-      return app.locals.username = user[0].username
+      return app.locals.username = user[0].username;
     })
   }
   next();

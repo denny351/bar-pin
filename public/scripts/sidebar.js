@@ -25,7 +25,7 @@ loginUser = ()=> {
       //                           'color': "#ef7500"})
       $(".welcomeMessage").append(response);
       clearInputField();
-      window.location.reload();
+      window.location.reload(true);
     })
     .fail((jqXHR, textStatus) => {
       clearInputField();
@@ -48,7 +48,6 @@ registerUser = () => {
       data: {'userName': username, 'password': password}
     })
     .done((response) => {
-      console.log(response);
       $("#wrapper").toggleClass("toggled");
       $(".welcomeMessage").html(response);
       clearInputField();
@@ -56,8 +55,6 @@ registerUser = () => {
 
     })
     .fail((jqXHR, textStatus) => {
-      console.log(jqXHR.responseText);
-      console.log(textStatus);
       $(".displayError").html(jqXHR.responseText);
       clearInputField();
     })
@@ -72,11 +69,9 @@ logoutUser = ()=> {
     $.ajax({
       url: '/api/users/logout',
       type: 'POST',
-      success: () => {
-        window.location.reload();
-      }
+      success: window.location.reload
     })
-   });
+  });
 }
 
 

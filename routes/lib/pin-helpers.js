@@ -19,7 +19,7 @@ module.exports = {
         lat: `${pinInfo.lat}`,
         type: `${pinInfo.type}`
       })
-      .then(callback());
+      .then(callback);
   },
 
   getAllPins: function(knex, callback) {
@@ -35,7 +35,6 @@ module.exports = {
     .join('pins', 'users.id', '=', 'pins.user_id')
     .select('*')
     .where({ 'users.username': userName}).then((rows) => {
-      console.log(rows);
       callback(rows);
     });
   },
@@ -58,17 +57,13 @@ module.exports = {
       lng: updateInfo.newLong,
       lat: updateInfo.newLat
     })
-    .then(
-      callback()
-    );
+    .then(callback);
   },
 
   deletePin(knex, pinID, callback) {
     knex('pins')
     .where('id', pinID)
     .del()
-    .then(
-      callback()
-    );
+    .then(callback);
   }
 }

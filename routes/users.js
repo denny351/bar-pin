@@ -16,7 +16,7 @@ module.exports = (knex) => {
 
       if (userInfo.name && userInfo.pass) {
         userHelpers.findUserFromName(knex, userInfo.name, (user) => {
-          if (user.length > 0) {
+          if (user) {
             res.status(400).json("This username already exists.");
           } else {
             userHelpers.addNewUser(knex, userInfo, (id) => {
@@ -72,7 +72,7 @@ module.exports = (knex) => {
   router.get("/", (req, res) => {
     userHelpers.getUserList(knex, (users) => {
       let userList = [];
-      users.forEach((user) => {
+      users.forEach((user) => { //This is a .map
         userList.push(user.username);
       });
       res.json(userList);

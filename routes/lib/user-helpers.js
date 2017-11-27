@@ -28,7 +28,7 @@ module.exports = {
     knex('username')
     .from('users')
     .then(function(rows) {
-      callback(rows)
+      callback(rows) //just .then(callback)
     });
   }
 }

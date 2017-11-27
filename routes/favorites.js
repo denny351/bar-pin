@@ -18,7 +18,7 @@ module.exports = (knex) => {
     .then((rows) => {
       let favorited = false;
       if (rows.length) {
-        rows.forEach((row) => {
+        rows.forEach((row) => { //.any .one
           if (row.pin_id === favInfo.pinID) {
           favorited = true;
           }
