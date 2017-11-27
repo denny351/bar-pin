@@ -32,6 +32,11 @@ app.use(cookieSession({
 
 app.use((req, res, next) => {
   app.locals.userID   = (req.session.user_id) ? req.session.user_id : null;
+  if (req.session.user_id) {
+    knex('username').from('users').where('id', req.session.user_id).then((user) => {
+      return app.locals.username = user[0].username
+    })
+  }
   next();
 });
 
@@ -40,6 +45,10 @@ app.use("/", navRoutes());
 app.use("/api/users", usersRoutes(knex));
 app.use("/api/pins", pinsRoutes(knex));
 app.use("/api/favorites", favoritesRoutes(knex));
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.send("Error: Server cannot resolve your request.");
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

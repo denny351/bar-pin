@@ -15,9 +15,6 @@
 
   <body>
     <div id="wrapper">
-      <%if (userID) {%>
-      <header class="welcomeMessage">Welcome <%= userID%></header>
-      <% } %>
 
       <!-- SIDEBAR -->
       <div id="sidebar-wrapper">
@@ -37,6 +34,8 @@
               <% } else { %>
               <div class="userImage">
               </div>
+
+              <p class="userName">@<%= username %></p>
             </form>
 
             <!-- Like Buttons on sidebar -->
