@@ -110,6 +110,7 @@ body {
   display: none;
 }
 
+/* Street View */
 #map > div > div:nth-child(2) > div:nth-child(9) > div {
   margin-top: 999%;
 }
@@ -147,4 +148,9 @@ body {
   float: right;
   margin-right: 3px;
   margin-bottom: 2px;
+}
+
+#favId {
+  float: left;
+  margin-left: 3px;
 }

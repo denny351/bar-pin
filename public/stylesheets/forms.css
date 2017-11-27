@@ -1,6 +1,5 @@
 /* CREATE PIN FORM */
 
-
 .createContainer, .editContainer {
   z-index: 99;
   position: absolute;
@@ -41,6 +40,7 @@
   margin-right: 6px;
 }
 
+/* Error message for creating/edit while not logged in */
 #notLoggedIn {
   text-align: center;
   margin: 0;
@@ -60,6 +60,7 @@
   cursor: pointer;
 }
 
+/* Error message for deleting/editing other users pin */
 #edit-delete-error {
   display: none;
   position: absolute;
