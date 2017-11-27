@@ -74,22 +74,29 @@ module.exports = (knex) => {
       newLat: req.body.lat
     }
 
-    pinHelpers.updatePin(knex, updateInfo, (err) => {
-      if(err) {
-        res.status(500).json("Something went wrong! Please try again.");
+    pinHelpers.getIdFromPin(knex, updateInfo.pinID, (pins) => {
+      if (pins[0].user_id === req.session.user_id) {
+        pinHelpers.updatePin(knex, updateInfo, (err) => {
+          if (err) next(err);
+          res.json("Success! Your pin has been updated.");
+        });
       } else {
-        res.json("Success! Your pin has been updated.");
+        res.status(401).json("You can't edit another user's pin!");
       }
     });
   });
 
   router.delete("/:id/delete", [userHelpers.userLoggedIn], (req, res) => {
     const pinID = req.params.id;
-    pinHelpers.deletePin(knex, pinID, (err) => {
-      if(err) {
-        res.status(500).json("Something went wrong! Please try again.");
+
+    pinHelpers.getIdFromPin(knex, pinID, (pins) => {
+      if (pins[0].user_id === req.session.user_id) {
+        pinHelpers.deletePin(knex, pinID, (err) => {
+          if(err) next(err);
+          res.json("Success! Your pin has been deleted.");
+        });
       } else {
-        res.json("Success! Your pin has been deleted.");
+        res.status(401).json("You can't delete another user's pin!");
       }
     });
   });

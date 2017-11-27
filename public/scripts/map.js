@@ -50,7 +50,6 @@ function initMap() {
   });
 
   function generateContent(data) {
-    console.log(data.id);
     return `<div id="iw-container" data-id=${data.id}>
               <div class="iw-title">${data.title}</div>
               <div class="iw-content">
@@ -183,11 +182,12 @@ function initMap() {
       method: 'PUT',
       url: `/api/pins/${clickedID}/update`,
       dataType: 'JSON',
-      data: {title: name, desc: description, img: img}
+      data: {title: name, desc: description, img: img},
+      success: function(data) {
+        $('.editContainer').fadeOut(200);
+        $('.error-alert').text(data);
+      }
     })
-    .done(function(){
-      $('.editContainer').fadeOut(200);
-    });
   });
 
   // DELETE PIN

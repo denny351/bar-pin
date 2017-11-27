@@ -1,5 +1,13 @@
 module.exports = {
 
+  getIdFromPin: function(knex, pinID, callback) {
+    knex('pins')
+      .where('id', '=', pinID )
+      .then((pins) => {
+        callback(pins);
+      });
+  },
+
   addNewPin: function(knex, pinInfo, callback) {
     knex('pins')
       .insert({

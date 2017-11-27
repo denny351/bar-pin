@@ -36,7 +36,6 @@ app.use((req, res, next) => {
     knex('username').from('users').where('id', req.session.user_id).then((user) => {
       return app.locals.username = user[0].username
     })
-    console.log(app.locals.username);
   }
   next();
 });
