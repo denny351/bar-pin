@@ -59,3 +59,29 @@
   color: #630000;
   cursor: pointer;
 }
+
+#edit-delete-error {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  width: 25%;
+  margin: 0 auto;
+  text-align: center;
+  background-color: white;
+  top: 25%;
+}
+
+#edit-delete-error > span {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  margin-right: 20px;
+  margin-top: 6px;
+  font-size: 17px;
+}
+
+.show-error {
+  display: block;
+}

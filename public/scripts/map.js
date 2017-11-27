@@ -144,6 +144,7 @@ function initMap() {
       $('#createForm').removeData();
       $('#barType1').prop('checked', true);
       var newMarker = addMarker({lat: lat, lng: long, type: type});
+      markers.push(newMarker);
       newMarker.addListener('click', () => {
         infoWindow.setContent(generateContent(data));
         infoWindow.open(map, newMarker);
@@ -183,10 +184,15 @@ function initMap() {
       url: `/api/pins/${clickedID}/update`,
       dataType: 'JSON',
       data: {title: name, desc: description, img: img},
-      success: function(data) {
-        $('.editContainer').fadeOut(200);
-        $('.error-alert').text(data);
-      }
+    })
+    .done(() => {
+      $('.editContainer').fadeOut(200);
+    })
+    .fail(() => {
+      $('#edit-delete-error').css({ display: 'block' })
+      setTimeout(function() {
+        $('#edit-delete-error').css({ display: 'none' })
+      }, 3000);
     })
   });
 
@@ -201,7 +207,13 @@ function initMap() {
     })
     .done(() => {
       window.location.reload();
-    });
+    })
+    .fail(() => {
+      $('#edit-delete-error').css({ display: 'block' })
+      setTimeout(function() {
+        $('#edit-delete-error').css({ display: 'none' })
+      }, 3000);
+    })
   });
 
   //FAVORITE PIN
@@ -229,6 +241,7 @@ function initMap() {
 
   // FILTER - SHOW ALL USER'S PINS
   $(".all-bars").on("click", (event) => {
+    console.log(markers);
     markers.forEach((marker) => {
       marker.setMap(null);
     });
