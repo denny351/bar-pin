@@ -5,6 +5,8 @@ const router = express.Router();
 
 module.exports = (knex) => {
 
+  // TOGGLE FAVOURITE STATUS OF LOGGED IN USER
+
   router.put("/:pinId", [userHelpers.userLoggedIn], (req, res) => {
     const favInfo = {
     userID: req.session.user_id,

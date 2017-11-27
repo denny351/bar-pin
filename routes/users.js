@@ -67,8 +67,6 @@ module.exports = (knex) => {
     });
   });
 
-
-
    // GET ALL USERNAMES FOR USER FILTER
 
   router.get("/", (req, res) => {

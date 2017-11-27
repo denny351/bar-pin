@@ -6,6 +6,8 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
+  // POST NEW PIN
+
   router.post("/", [userHelpers.userLoggedIn], (req, res) => {
 
     const pinInfo = {
@@ -18,14 +20,12 @@ module.exports = (knex) => {
       type: req.body.type
     }
 
-    pinHelpers.addNewPin(knex, pinInfo, (err) => {
-      if (err) {
-        res.status(500).json("Something went wrong! Please try again.");
-      } else {
+    pinHelpers.addNewPin(knex, pinInfo, () => {
         res.json(pinInfo);
-      }
+      });
     });
-  });
+
+  // SHOW ALL PINS
 
   router.get("/", (req, res) => {
 
@@ -34,6 +34,8 @@ module.exports = (knex) => {
     });
   });
 
+  // SHOW LOGGED IN USER'S PINS
+
   router.get("/mypins", [userHelpers.userLoggedIn], (req, res) => {
 
     const userID = req.session.user_id;
@@ -41,6 +43,8 @@ module.exports = (knex) => {
         res.json(pins);
     });
   });
+
+  // SHOW LOGGED IN USER'S FAVOURITE PINS
 
   router.get("/myfavs", [userHelpers.userLoggedIn], (req, res) => {
     const userID = req.session.user_id;
@@ -63,6 +67,8 @@ module.exports = (knex) => {
     });
   });
 
+  // UPDATE LOGGED IN USER'S PIN IF THEY OWN IT
+
   router.put("/:id/update",[userHelpers.userLoggedIn], (req, res) => {
 
     const updateInfo = {
@@ -76,8 +82,7 @@ module.exports = (knex) => {
 
     pinHelpers.getIdFromPin(knex, updateInfo.pinID, (pins) => {
       if (pins[0].user_id === req.session.user_id) {
-        pinHelpers.updatePin(knex, updateInfo, (err) => {
-          if (err) next(err);
+        pinHelpers.updatePin(knex, updateInfo, () => {
           res.json("Success! Your pin has been updated.");
         });
       } else {
@@ -86,13 +91,14 @@ module.exports = (knex) => {
     });
   });
 
+  // DELETE LOGGED IN USER'S PIN IF THEY OWN IT
+
   router.delete("/:id/delete", [userHelpers.userLoggedIn], (req, res) => {
     const pinID = req.params.id;
 
     pinHelpers.getIdFromPin(knex, pinID, (pins) => {
       if (pins[0].user_id === req.session.user_id) {
         pinHelpers.deletePin(knex, pinID, (err) => {
-          if(err) next(err);
           res.json("Success! Your pin has been deleted.");
         });
       } else {
