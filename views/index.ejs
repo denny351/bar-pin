@@ -109,20 +109,27 @@
 
       <!-- EDIT PIN FORM -->
       <div class="editContainer">
-        <form id="editForm" >
-          <h2>Edit Your Pin!</h2>
-          <div class="form-group">
-            <input id="editName" class="textInput" name="name" type="text" required>
+        <% if (userID) { %>
+          <form id="editForm" >
+            <h2>Edit Your Pin!</h2>
+            <div class="form-group">
+              <input id="editName" class="textInput" name="name" type="text" required>
+            </div>
+            <div class="form-group">
+              <input id="editImage" class="textInput" name="image" type="url">
+            </div>
+            <div class="form-group">
+              <textarea id="editDescription" class="textInput" name="description"></textarea>
+            </div>
+            <input id="editPin" class="btn btn-default" type="submit" value="Edit">
+            <input class="cancel btn btn-default" value="Cancel">
+          </form>
+        <% } else { %>
+          <div id="notLoggedIn" class="alert alert-danger" role="alert">
+            <p><strong>Oh snap!</strong> You Have To Log In First!</p>
+            <span class="cancel glyphicon glyphicon-remove" aria-hidden="true"></span>
           </div>
-          <div class="form-group">
-            <input id="editImage" class="textInput" name="image" type="url">
-          </div>
-          <div class="form-group">
-            <textarea id="editDescription" class="textInput" name="description"></textarea>
-          </div>
-          <input id="editPin" class="btn btn-default" type="submit" value="Edit">
-          <input class="cancel btn btn-default" value="Cancel">
-        </form>
+        <% } %>
       </div>
 
     </div>
