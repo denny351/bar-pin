@@ -45,7 +45,7 @@ module.exports = (knex) => {
             req.session.user_id = user[0].id;
             res.json(`Welcome ${userInfo.name}!`);
           } else {
-            res.status(400).json("Your username or password is incorrect. Please try again!");
+            res.status(400).json("Username and password combination not found. Please try again!");
           }
         });
       } else {
@@ -66,6 +66,8 @@ module.exports = (knex) => {
       res.json(pins);
     });
   });
+
+
 
    // GET ALL USERNAMES FOR USER FILTER
 

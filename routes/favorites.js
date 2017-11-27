@@ -1,14 +1,15 @@
-const express = require("express");
+const express     = require("express");
+const favHelpers  = require('./lib/favorite-helpers');
+const userHelpers = require('./lib/user-helpers');
 const router = express.Router();
-const favHelpers = require('./lib/favorite-helpers');
 
 module.exports = (knex) => {
-  router.put("/:pinId", (req, res) => {
+
+  router.put("/:pinId", [userHelpers.userLoggedIn], (req, res) => {
     const favInfo = {
     userID: req.session.user_id,
     pinID: JSON.parse(req.params.pinId)
     };
-
 
     knex("favourites")
     .where("user_id", favInfo.userID)
@@ -25,12 +26,12 @@ module.exports = (knex) => {
     }).then((faved) => {
       if (faved) {
         favHelpers.deleteFavoritePin(knex, favInfo, (err) => {
-          if (err) throw err;
+          if (err) next(err);
           res.json("Unfavorited");
         });
       } else {
         favHelpers.addFavoritePin(knex, favInfo, (err) => {
-          if (err) throw err;
+          if (err) next(err) ;
           res.json("Favorited");
         });
       }

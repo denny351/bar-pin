@@ -1,6 +1,6 @@
 module.exports = {
 
-  addNewPin(knex, pinInfo, callback) {
+  addNewPin: function(knex, pinInfo, callback) {
     knex('pins')
       .insert({
         user_id: `${pinInfo.userID}`,
@@ -14,7 +14,7 @@ module.exports = {
       .then(callback());
   },
 
-  getAllPins(knex, callback) {
+  getAllPins: function(knex, callback) {
     knex('*')
     .from('pins')
     .then((rows) => {
@@ -22,7 +22,7 @@ module.exports = {
     });
   },
 
-  getPinsByUserName(knex, userName, callback) {
+  getPinsByUserName: function(knex, userName, callback) {
     knex('users')
     .join('pins', 'users.id', '=', 'pins.user_id')
     .select('*')
@@ -32,7 +32,7 @@ module.exports = {
     });
   },
 
-  getPinsByUserId(knex, userID, callback) {
+  getPinsByUserId: function(knex, userID, callback) {
     knex('pins')
     .where('user_id', userID)
     .then((pins) => {
@@ -40,7 +40,7 @@ module.exports = {
     });
   },
 
-  updatePin(knex, updateInfo, callback) {
+  updatePin: function(knex, updateInfo, callback) {
     knex('pins')
     .where('id', updateInfo.pinID)
     .update({

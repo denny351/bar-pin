@@ -20,10 +20,10 @@ module.exports = {
 
 	findFavPin(knex, favInfo, callback) {
     knex("favourites")
-      .where("user_id", favInfo.userID)
-      .then((rows) => {
+    .where("user_id", favInfo.userID)
+    .then((rows) => {
         callback(rows)
-      });
+      })
   },
 
   getUserFavsById(knex, userID, callback) {

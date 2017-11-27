@@ -6,7 +6,7 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-  router.post("/", (req, res) => {
+  router.post("/", [userHelpers.userLoggedIn], (req, res) => {
 
     const pinInfo = {
       userID: req.session.user_id,
@@ -34,7 +34,7 @@ module.exports = (knex) => {
     });
   });
 
-  router.get("/mypins", (req, res) => {
+  router.get("/mypins", [userHelpers.userLoggedIn], (req, res) => {
 
     const userID = req.session.user_id;
     pinHelpers.getPinsByUserId(knex, userID, (pins) => {
@@ -42,7 +42,7 @@ module.exports = (knex) => {
     });
   });
 
-  router.get("/myfavs", (req, res) => {
+  router.get("/myfavs", [userHelpers.userLoggedIn], (req, res) => {
     const userID = req.session.user_id;
     favHelpers.getUserFavsById(knex, userID, (pins) => {
       let data = [];
