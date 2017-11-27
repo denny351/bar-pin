@@ -124,6 +124,11 @@ form.loginForm {
   border: 0.5px solid #ef7500;
 }
 
+#notLoggedInForm form.loginForm .userName {
+  color: #ef7500
+  font-size: 100px;
+}
+
 #notLoggedInForm > form > p {
   font-size: 20px;
   margin: 0 auto;
