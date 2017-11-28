@@ -1,5 +1,5 @@
 menuToggle = ()=> {
-  $("#menu-toggle").click(function(event) {
+  $("#menu-toggle").on("click", function(event) {
     event.preventDefault();
     $("#wrapper").toggleClass("toggled");
     $("#inputUsername").focus();

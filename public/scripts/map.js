@@ -115,11 +115,6 @@ function initMap() {
     };
   }
 
-  // PLACE ALL MARKERS ON PAGE LOAD
-  $.get("/api/pins", (APIData) => {
-    placeAllMarkers(APIData);
-  });
-
   // SUBMIT NEW PIN
   $('#submitPin').on('click', (event) => {
     event.preventDefault();
@@ -155,6 +150,7 @@ function initMap() {
 
   // OPEN EDIT FORM
   $.get("/api/pins", (data) => {
+    placeAllMarkers(data);
     $(document).on('click', '.editForm', (event) => {
       var parent = $(event.target).parents('#iw-container');
       editID = $(parent[0]).data('id');
