@@ -68,8 +68,10 @@ logoutUser = ()=> {
 
     $.ajax({
       url: '/api/users/logout',
-      type: 'POST',
-      success: window.location.reload
+      type: 'POST'
+    })
+    .done((response) => {
+      window.location.reload();
     })
   });
 }
